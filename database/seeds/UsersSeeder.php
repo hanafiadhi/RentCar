@@ -17,6 +17,7 @@ class UsersSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'password'=> bcrypt('12345678'),
                 'email_verified_at' => now(),
+                'cek'=>'full'
             ]);
 
             $admin->assignRole('admin');
@@ -29,6 +30,7 @@ class UsersSeeder extends Seeder
                 'email_verified_at' => now(),
                 'no_handphone' => 62891829918299,
                 'gender'=> 'L',
+                'cek'=> 'kurang'
             ]);
 
             $user->assignRole('user');
