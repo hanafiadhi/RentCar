@@ -43,6 +43,7 @@ class UsersSeeder extends Seeder
                 'email_verified_at' => now(),
                 'no_handphone' => 62891829918299,
                 'gender'=> 'P',
+                'cek'=>'kurang'
             ]);
 
             $userd->assignRole('user');
