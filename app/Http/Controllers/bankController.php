@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Storage;
 class bankController extends Controller
 {
     public function index(){
-        return view('backend.content.bank.index',['bank' => Bank::all()]);
+        $bank = Bank::all();
+        return view('backend.content.bank.index',compact($bank));
     }
 
     public function create(){

@@ -1,4 +1,5 @@
 @extends('backend.full')
+
 @section('konten')
 <div class="main-content">
     <section class="section">
