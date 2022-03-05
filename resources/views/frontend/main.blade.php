@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>{{ \App\website::first()->app_name ?? 'Rental Mobil'}} | {{$title ?? ''}}</title>
+    <title>{{ \App\website::get('app_name') ?? 'Rental Mobil'}} | {{$title ?? ''}}</title>
     {{-- <title>{{\App\website::first()->app_name ?? 'Rental Mobil'.' | '.$tittle ?? ''}}</title> --}}
-    <meta name="description" content="{{\App\website::first()->site_desciption ?? 'Rental Mobil'}}">
-    <link rel="icon" type="image/x-icon" href="{{asset('/storage/'.\App\website::first()->favicon ?? '')}}">
+    <meta name="description" content="{{\App\website::get('site_desciption') ?? 'Rental Mobil'}}">
+    <link rel="icon" type="image/x-icon" href="{{\App\website::get('favicon') ? asset('/storage/'.\App\website::get('favicon')) : ''}}">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -31,7 +31,7 @@
             <nav class="navbar navbar-expand-lg main-navbar">
                 <a href="/"
                     class="navbar-brand sidebar-gone-hide">
-                    <img src="{{asset('/storage/'.\App\website::first()->Logo ?? '')}}" style="max-height: 70px" alt="" srcset="">
+                    <img src="{{asset('/storage/'.\App\website::get('Logo') ?? '')}}" style="max-height: 70px" alt="" srcset="">
                     {{-- {{\App\website::first()->app_name ?? 'Rental Mobil'}}</a> --}}
                 <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
                 <div class="nav-collapse">
