@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,6 +31,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = '/email/verify';
 
     /**
      * Create a new controller instance.
@@ -51,9 +53,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'username'=> ['required','string','max:50','min:5','unique:users'],
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string','min:5', 'max:255',],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'no_handphone'=> ['required','numeric','digits_between:12,13'],
+            'gender'=> ['required', 'string', 'min:1', 'max:1']
         ]);
     }
 
@@ -65,12 +69,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'username' => $data['username'],
             'name' => $data['name'],
             'email' => $data['email'],
+            'no_handphone'=> $data['no_handphone'],
+            'gender'=> $data['gender'],
             'cek'=> 'kurang',
             'password' => Hash::make($data['password']),
         ]);
+        $user->assignRole('user');
+        return $user;
     }
 }

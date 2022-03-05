@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,19 +13,34 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/','frontendController@index');
 Route::get('/mobil','frontendController@car');
-Route::get('/detail-mobil','frontendController@carDetails')->name('detail');
-Route::get('/stepOne','frontendController@stepOne')->name('stepOne');
-Route::get('/stepTwo','frontendController@stepTwo')->name('stepTwo');
-Route::get('/stepThree','frontendController@step3')->name('stepThree');
+Route::get('/detail-mobil/{id}','frontendController@carDetails')->name('detail');
 
 // !!------------------frontend--------------------!!
+// Route::fallback(function () {
+//     abort(404);
+// });
+#user
+
+Route::group(['middleware' =>['auth']], function () {
+    // User needs to be authenticated to enter here.
+    Route::get('/my-transaction','userController@transaksi');
+    Route::get('/my-profil','userController@profil');
+    Route::get('/my-invoice/{id}','userController@invoice')->name('invoice');
+});
+Route::group(['middleware' =>['auth','verified']], function () {
+    // User needs to be authenticated to enter here.
+    Route::post('/stepTwo','transaksiController@stepTwo')->name('stepTwo');
+    Route::get('/cek-pesanan','transaksiController@stepTwos')->name('stepTwos');
+    Route::get('/batal','transaksiController@cancel')->name('cancel');
+    // Route::patch('/change-profil','transaksiController@change')->name('change');
+    Route::post('/stepThree','transaksiController@step3')->name('stepThree');
+    Route::post('/stepFour','transaksiController@step4')->name('stepFour');
+});
 // ----------backend---------------------------------
-Auth::routes(['verify' => true,'register' => false]);
+// Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     //
@@ -60,6 +74,7 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     // ----------------------------------------------------------------------
     Route::get('/user-biasa','userBiasaController@index');
     Route::get('/user-biasa/details/{id}','userBiasaController@details');
+    Route::delete('/user-biasa/destroy/{id}','userBiasaController@destroy');
     //----------------------------------------------------------------------
     Route::get('/sosial-media','sosialMediaController@index');
     Route::get('/sosial-media/create','sosialMediaController@create');
@@ -73,7 +88,7 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     Route::post('/bank-payment/store','bankController@store');
     Route::get('/bank-payment/edit/{id}','bankController@edit');
     Route::patch('/bank-payment/update/{id}','bankController@update');
-    Route::delete('/bank-payment/destroy/{id}','bankControleer@destroy');
+    Route::delete('/bank-payment/destroy/{id}','bankController@destroy');
     // --------------------------------------------------------------------------
     Route::get('/setting', 'settingController@index');
     Route::patch('/setting/update/','settingController@edit');

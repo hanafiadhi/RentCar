@@ -3,5 +3,6 @@
     "editor.fontSize": 15,
     "terminal.integrated.fontSize": 14,
     "workbench.colorTheme": "Noctis Minimus",
+    // "workbench.colorTheme": "Noctis Azureus",
     "workbench.iconTheme": "vscode-icons"
 }

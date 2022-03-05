@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\car;
+use App\Transaction;
 class frontendController extends Controller
 {
     public function index(){
@@ -11,21 +12,16 @@ class frontendController extends Controller
     }
 
     public function car(){
-        return view('frontend.content.listMobil');
+        return view('frontend.content.listMobil',['car'=> car::where('status','ready')->get()]);
     }
 
-    public function carDetails(){
-        return view('frontend.content.detailMobil');
-    }
+    public function carDetails(Request $request, $id){
 
-    public function stepOne(){
-        return view('frontend.content.step.tanggal');
+        $cek = car::where('status','ready')->where('id',$id)->first();
+        if ($cek== null) {
+            # code...
+            return redirect()->back();
+        }
+        return view('frontend.content.detailMobil',compact('cek'));
     }
-    public function stepTwo(){
-        return view('frontend.content.step.DT');
-    }
-    public function step3(){
-        return view('frontend.content.step.uploadBuktiPembayaran');
-    }
-    
 }

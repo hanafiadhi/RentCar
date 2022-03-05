@@ -1,13 +1,21 @@
-@extends('frontend.main',['title'=>'Upload Bukti Pembayaran'])
+@extends('frontend.main',['title'=>'Detail Invoice'])
 @section('content')
 <div class="main-content">
     <section class="section">
         <div class="section-header">
             <div class="d-flex justify-content-center">
-                <h1>Booking</h1>
+                <h1>Detail Pesanan</h1>
             </div>
         </div>
     </section>
+    @if (session('success') || session('upload'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{session('success') ?? session('upload')}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="section-body">
         <div class="row">
             <div class="col-12 col-sm-8 col-lg-8">
@@ -16,17 +24,22 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="invoice-title">
+                                    @if($data->invoice)
                                     <h2>Invoice</h2>
-                                    <div class="invoice-number">Order #12345</div>
+                                    <div class="invoice-number">#{{$data->invoice}}</div>
+                                    @else
+                                    <h2>Order</h2>
+                                    @endif
+
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <address>
                                             <strong>Atas Nama:</strong><br>
-                                            Nama : Ujang Maman<br>
-                                            Email : UjangManan@gmail.com<br>
-                                            No Handphone : +628223924944<br>
+                                            Nama : {{$data->nama}}<br>
+                                            Email : {{$data->email}}<br>
+                                            No Handphone :{{$data->no_handphone}}<br>
                                         </address>
                                     </div>
                                     {{-- <div class="col-md-6 text-md-right">
@@ -43,20 +56,24 @@
                                     <div class="col-md-6">
                                         <address>
                                             <strong>Payment Method:</strong><br>
-                                            BCA<br>
+                                            @if($data->bank()->get('gambar')->count() !== 0)
+                                            <img src="{{asset('/storage/'.$data->bank()->get('gambar')->first()->gambar)}}"
+                                                style="max-height: 50px">
+                                            @else
+                                            {{$data->nama_bank}}<br>
+                                            @endif
                                         </address>
                                     </div>
                                     <div class="col-md-6 text-md-right">
                                         <address>
                                             <strong>Order Date:</strong><br>
-                                            29 Maret 2022<br><br>
+                                            {{\Carbon\Carbon::parse($data->created_at)->isoFormat('D MMMM Y') }}<br><br>
                                         </address>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row mt-4">
+                        <div class="row">
                             <div class="col-md-12">
                                 <section class="section">
                                     <div class="section-title">Order Summary</div>
@@ -70,46 +87,54 @@
                                             <th class="text-center">Price</th>
                                             <th class="text-center">Tanggal Mulai Rental</th>
                                             <th class="text-center">Tanggal Selesai Rental</th>
-                                            <th class="text-right">Durasi</th>
+                                            <th class="text-center">Durasi</th>
                                         </tr>
                                         <tr>
-                                            <td>3</td>
-                                            <td>Headphone Blitz TDR-3000</td>
-                                            <td class="text-center">Rp500.000</td>
-                                            <td class="text-center">29 Maret 2022</td>
-                                            <td class="text-center">29 Maret 2022</td>
-                                            <td class="text-right">2 Hari</td>
+                                            <td>1</td>
+                                            <td>{{$data->mobil }}</td>
+                                            <td class="text-center">{{"Rp".number_format($data->harga) ?? ' '}}</td>
+                                            <td class="text-center">
+                                                {{\Carbon\Carbon::parse($data->start_date)->isoFormat('D MMMM Y') }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{\Carbon\Carbon::parse($data->end_date)->isoFormat('D MMMM Y') }}</td>
+                                            <td class="text-center">{{$data->durasi}} Hari</td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-8">
+                                        {{-- @if($data->bank()->get('gambar')->count() !== 0)
                                         <section class="section">
                                             <div class="section-title">Payment Method</div>
                                         </section>
-                                        {{-- <p class="section-lead">The payment method that we provide is to make it
-                                                easier for
-                                                you to pay invoices.</p> --}}
+                                        <p class="section-lead">
+                                        </p>
                                         <div class="d-flex">
-                                            <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
-                                            {{-- <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
+                                            <img src="{{asset('/storage/'.$data->bank()->get('gambar')->first()->gambar)}}"
+                                                style="max-height: 50px">
+
+                                            <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
                                                 <div class="mr-2 bg-mastercard" data-width="61" data-height="38"></div>
-                                                <div class="bg-paypal" data-width="61" data-height="38"></div> --}}
+                                                <div class="bg-paypal" data-width="61" data-height="38"></div>
                                         </div>
+                                        @endif --}}
                                     </div>
                                     <div class="col-lg-4 text-right">
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">Subtotal</div>
-                                            <div class="invoice-detail-value">Rp500.000</div>
+                                            <div class="invoice-detail-value">{{"Rp".number_format($data->harga)}}
+                                            </div>
                                         </div>
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">Durasi</div>
-                                            <div class="invoice-detail-value">2 hari</div>
+                                            <div class="invoice-detail-value">{{$data->durasi }} Hari</div>
                                         </div>
                                         <hr class="mt-2 mb-2">
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">Total Bayar</div>
-                                            <div class="invoice-detail-value invoice-detail-value-lg">Rp500.000
+                                            <div class="invoice-detail-value invoice-detail-value-lg">
+                                                {{"Rp".number_format($data->harga*$data->durasi)}}
                                             </div>
                                         </div>
                                     </div>
@@ -129,17 +154,25 @@
                             </div> --}}
                     </div>
                     <div class="card-body">
-                        <h6 class="text-center">Invoice :</h6>
-                        <h6 class="text-center text-dark">Order#1234</h6>
-                        <br>
-                        <h6 class="text-center">Transfer Ke</h6>
-                        <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
+                        {{-- <h6 class="text-center">Invoice :</h6>
+                        <h6 class="text-center text-dark">Order#{{$data->invoice}}</h6>
+                        <br> --}}
+                        <h6 class="text-center">Transfer Ke Bank :</h6>
+                        @if($data->bank()->get('gambar')->count() !== 0)
+                        <div class="d-flex justify-content-center">
+                            <img src="{{asset('/storage/'.$data->bank()->get('gambar')->first()->gambar)}}"
+                                style="max-height: 50px">
+                        </div>
+                        @else
+                        <h6 class="text-center">{{$data->nama_bank}}</h6>
+                        @endif
                         <p class="text-center">Atas Nama: </p>
-                        <h6 class="text-center">UjangManan</h6>
-                        <h6 class="text-center">No Rek : 8927102826</h6>
+                        <h6 class="text-center">{{$data->atas_nama}}</h6>
+                        <h6 class="text-center">No Rek : {{$data->norek}}</h6>
                         <hr>
                         <p class="text-center">Total Bayar : </p>
-                        <h5 class="text-center text-warning font-weight-bold">Rp500.000</h5>
+                        <h5 class="text-center text-warning font-weight-bold">
+                            {{"Rp".number_format($data->harga*$data->durasi)}}</h5>
                         <br>
                         <ul class="list-group">
                             <li class="list-group-item">
@@ -156,7 +189,8 @@
                                     <p>4. Upload Bukti Pembayaran</p>
                                     <p class="text-danger">*Jika transfer selain ke nomor Rekening dan Atas Nama
                                         maka itu kesalahan Pelanggan </p>
-                                    <p class="text-danger">*Jika transfer dengan nominal yang berbeda entah Kurang/Lebih maka itu kesalahan Pelanggan </p>
+                                    <p class="text-danger">*Jika transfer dengan nominal yang berbeda entah Kurang/Lebih
+                                        maka itu kesalahan Pelanggan </p>
                                 </div>
                             </li>
                         </ul>
@@ -165,11 +199,15 @@
                             <p class="text-center"><strong>Upload Bukti Pembayaran</strong></p>
                             <hr>
                             <div>
-                                <input name="gambar" class="form-control" type="file" accept="image/*"
-                                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
-                                @error('gambar')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                <form action="{{route('stepFour')}}" method="post" id="formUpload"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input required name="gambar" class="form-control" type="file" accept="image/*"
+                                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                                    @error('gambar')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </form>
                                 <div class="chocolat-parent">
                                     <div data-crop-image="">
                                         <img id="output" class="img-thumbnail" lass="chocolat-image">
@@ -186,6 +224,37 @@
                             <a href="/mobil" class="btn btn-outline-success  mt-3 btn-block"><i
                                     class="fas fa-info-circle"></i>Upload bukti</a>
                         </div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-success  mt-3 btn-block" data-toggle="modal"
+                            data-target="#staticBackdrop">
+                            <i class="fas fa-info-circle"></i> Upload bukti
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Silahkan Kirim Bukti Pembayaran
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-danger">Sebelum mengirim Pastikan gambar yang di Upload sudah
+                                            Benar dengan ketentuan jika tidak maka User akan di Ban</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-dark"
+                                            data-dismiss="modal">Belum</button>
+                                        <button type="button" id="sendForm" class="btn btn-outline-success">Kirim
+                                            Bukti</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,3 +263,28 @@
     {{-- </section> --}}
 </div>
 @endsection
+@push('js')
+<script>
+    $(function () {
+        $('#sendForm').click(function () {
+            $('#formUpload').submit()
+        })
+
+    })
+    // @if((session('success')))
+    // Swal.fire({
+    //     icon: 'success',
+    //     title: "{{session('success')}}",
+    //     text: 'Silahkan Lanjut Membayar!',
+    // })
+    // @endif
+    // @if((session('upload')))
+    // Swal.fire({
+    //     icon: 'success',
+    //     title: "{{session('upload')}}",
+    //     text: 'Kami akan menghubungi Anda Secepatnya!',
+    // })
+    // @endif
+
+</script>
+@endpush

@@ -11,12 +11,31 @@
             </div>
         </div>
         <div class="section-body">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card">
-                        <form action="/bank-payment/update/{{$data->id}}" method="post">
-                            @csrf
-                            @method('patch')
+            <form action="/bank-payment/update/{{$data->id}}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('patch')
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Foto Bank</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <img id="output" src="{{asset("/storage/".$data->gambar)}}" class="img-thumbnail">
+                                        <input name="gambar" class="form-control" type="file" accept="image/*"
+                                            onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                                        @error('gambar')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Nama Bank</label>
@@ -48,10 +67,10 @@
                                 <button type="reset" class="btn btn-warning">Reset</button>
                                 <a href="/bank-payment" class=" btn btn-outline-info">kembali</a>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 </div>

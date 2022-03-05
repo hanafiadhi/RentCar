@@ -10,14 +10,25 @@
         <div class="card">
             <div class="card-header">
                 <h4>Data admin</h4>
+                <div class="card-header-form">
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-striped table-md">
+                    <table class="table table-striped table-md" style="overflow-x: auto;white-space: nowrap">
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Created At</th>
+                            <th>Dibuat</th>
+                            <th>Email Verif</th>
                             <th>Email</th>
                             <th>HandPhone</th>
                             <th>Gender</th>
@@ -28,6 +39,7 @@
                         <tr>
                             <td>{{$no++}}</td>
                             <td>{{$item->name}}</td>
+                            <td>{{$item->created_at}} </td>
                             <td>{{$item->email_verified_at}} </td>
                             <td>{{$item->email}}</td>
                             <td>{{'+'.$item->no_handphone}}</td>
@@ -39,7 +51,7 @@
                                 @endif
                             </td>
                             <td>
-                                <form action="/user-biasa//destroy/{{$item->id}}" method="POST">
+                                <form action="/user-biasa/destroy/{{$item->id}}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <a href="/user-biasa/details/{{$item->id}}"
@@ -55,7 +67,7 @@
                 </div>
             </div>
             </section>
-        </div> 
+        </div>
     </div>
 </div>
 @endsection

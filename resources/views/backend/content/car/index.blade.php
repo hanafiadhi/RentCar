@@ -46,6 +46,16 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Semua Mobil</h4>
+                            <div class="card-header-form">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div class="card-body">
                             {{-- <div class="float-left">
@@ -68,8 +78,9 @@
                             </div> --}}
                             <div class="clearfix mb-3"></div>
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-striped" style="overflow-x: auto;white-space: nowrap">
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Mobil</th>
                                         <th>Gambar</th>
                                         <th>Tipe Mobil</th>
@@ -79,15 +90,19 @@
                                         <th>Status</th>
                                         <th>action</th>
                                     </tr>
+                                    <?php $no=1 ?>
                                     @foreach ($data as $item)
                                     <tr>
+                                        <td>{{$no++}}
+                                        </td>
                                         <td>{{$item->nama_mobil}}
                                         </td>
                                         <td>
-                                            <div class="chocolat-parent mb-2">
-                                                <a href="{{asset("/storage/".$item->gambar)}}"
-                                                    class="chocolat-image" title="Just an example">
-                                                    <div data-crop-image="100" style="object-fit:cover; object-position:center">
+                                            <div class="chocolat-parent">
+                                                <a href="{{asset("/storage/".$item->gambar)}}" class="chocolat-image"
+                                                    title="Just an example">
+                                                    <div data-crop-image=""
+                                                        style="object-fit:cover; object-position:center">
                                                         <img alt="image" src="{{asset("/storage/".$item->gambar)}}"
                                                             class="img-fluid">
                                                     </div>
@@ -95,7 +110,7 @@
                                             </div>
                                             {{-- <img style="height: 70px; object-fit:cover; object-position:center"
                                                 src="{{asset("/storage/".$item->gambar)}}" alt="" sizes="10px"
-                                                srcset=""> --}}
+                                            srcset=""> --}}
                                         </td>
                                         <td>
                                             {{$item->type->nama_tipe}}
@@ -141,7 +156,7 @@
                                     @endforeach
                                 </table>
                             </div>
-                            <div class="float-right">
+                            {{-- <div class="float-right">
                                 <nav>
                                     <ul class="pagination">
                                         <li class="page-item disabled">
@@ -167,7 +182,7 @@
                                         </li>
                                     </ul>
                                 </nav>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -177,9 +192,9 @@
 </div>
 @endsection
 @section('css-image')
-        <link rel="stylesheet" href="https://getstisla.com/dist/modules/chocolat/dist/css/chocolat.css">
+<link rel="stylesheet" href="https://getstisla.com/dist/modules/chocolat/dist/css/chocolat.css">
 @endsection
 @push('javascript')
-    <script src="https://getstisla.com/dist/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
-    <script src="https://getstisla.com/dist/modules/jquery-ui/jquery-ui.min.js"></script>
+<script src="https://getstisla.com/dist/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+<script src="https://getstisla.com/dist/modules/jquery-ui/jquery-ui.min.js"></script>
 @endpush

@@ -3,20 +3,19 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Sosial Media</h1>
-        </div>
-        <div class="section-body">
-            <div class="col-12">
-                <a href="/sosial-media/create" class=" btn btn-outline-primary mb-3">Tambah Media</a>
-                @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{session('success')}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                @endif
+            <h1>Settings</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item">Settings</div>
             </div>
+        </div>
+
+        <div class="section-body">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-lead">
+                Organize and adjust all settings sosial media.
+            </p>
+
             <div class="row">
                 @foreach ($sosial as $item)
                 <div class="col-lg-6">
@@ -26,7 +25,7 @@
                         </div>
                         <div class="card-body">
                             <h4>{{$item->nama}}</h4>
-                            <p>{{$item->url}}</p>
+                            <p>{{ Str::limit($item->url, 74, '...') }}</p>
                             <div class="d-flex">
                                 <form action="/sosial-media/destroy/{{$item->id}}" method="post">
                                     @csrf

@@ -73,14 +73,28 @@
                         </div>
                         <div class="card-body">
                             {{-- <div class="d-flex justify-content-center"> --}}
-                            <form action="{{route('stepTwo')}}">
+                            <form action="{{route('stepTwo')}}" class="needs-validation" novalidate>
                                 <div class="form-group">
                                     <label>Tangaal Mulai Rental</label>
-                                    <input type="text" class="form-control datepicker">
+                                    <input type="date" required id="txtDate" class="form-control datepicker">
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Selesai Rental</label>
-                                    <input type="text" class="form-control datepicker">
+                                    <input type="date" required id="txtDate2" class="form-control datepicker">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="validationCustom04">Metode Pembayaran</label>
+                                    <select id="validationCustom04" required name="gender"
+                                        class="custom-select form-control @error('gender') is-invalid @enderror">
+                                        <option disabled selected value="">Pilih</option>
+                                        <option value="L">BCA</option>
+                                        <option value="P">BRI</option>
+                                    </select>
+                                    @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-outline-success btn-block"><i
                                         class="fas fa-dolly-flatbed"></i> Booking</button>

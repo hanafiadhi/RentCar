@@ -15,7 +15,7 @@
         @endif
         <div class="section-body">
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="card card-success">
                         <div class="card-header">
                             <h4>Data Diri</h4>
@@ -75,8 +75,6 @@
                                     <label>Email</label>
                                     <input type="email" class="form-control" readonly value="{{$admin->email}}">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-warning">Reset</button>
                                 <a href="/user-biasa" class=" btn btn-outline-info">kembali</a>
                             </form>
                         </div>

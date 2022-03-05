@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\{User,car,Fitur,type};
 
 class HomeController extends Controller
@@ -17,7 +15,6 @@ class HomeController extends Controller
     {
         $this->middleware(['auth','verified']);
     }
-
     /**
      * Show the application dashboard.
      *

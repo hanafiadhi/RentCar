@@ -35,12 +35,17 @@
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
+                                        <th>No</th>
                                         <th>Kode Tipe</th>
                                         <th>Nama Tipe </th>
                                         <th>Action</th>
                                     </tr>
+                                    <?php $no=1 ?>
                                     @foreach ($tipe as $type)
                                     <tr>
+                                        <td>
+                                             {{ $no++}}
+                                        </td>
                                         <td>
                                             {{$type->kode_tipe}}
                                         </td>

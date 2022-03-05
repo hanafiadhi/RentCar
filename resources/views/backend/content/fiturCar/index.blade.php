@@ -36,11 +36,16 @@
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
+                                        <th>No</th>
                                         <th>Fitur mobil</th>
                                         <th>Action</th>
                                     </tr>
+                                    <?php $no=1 ?>
                                     @foreach ($fitur as $type)
                                     <tr>
+                                        <td>
+                                            {{$no++}}
+                                        </td>
                                         <td>
                                             {{$type->nama_fitur}}
                                         </td>

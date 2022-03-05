@@ -15,7 +15,7 @@
         @endif
         <div class="section-body">
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="card card-success">
                         <div class="card-header">
                             <h4>Data Diri</h4>
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="card card-success">
                         <div class="card-header">
                             <h4>Ganti Password</h4>

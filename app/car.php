@@ -22,10 +22,16 @@ class car extends Model
             'bahan_bakar'
         ];
     public function type(){
-        return $this->belongsTo(type::class);
+            return $this->belongsTo(type::class)->withDefault([
+            'nama_tipe' => 'Guest Author'
+        ]);
     }
 
     public function fiturs(){
         return $this->belongsToMany(Fitur::class);
+    }
+
+    public function mobil(){
+        return $this->hasMany(Transaction::class);
     }
 }
