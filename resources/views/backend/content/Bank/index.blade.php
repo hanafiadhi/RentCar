@@ -1,7 +1,8 @@
 @extends('backend.full')
 
 @section('konten')
-<div class="main-content">
+<h1>YO ndak tau</h1>
+{{-- <div class="main-content">
     <section class="section">
         <div class="section-header">
             <h1>Bank</h1>
@@ -18,7 +19,7 @@
                 </div>
                 @endif
                 <div class="card">
-                    {{-- <button type="button" class="btn btn-outline-primary">Primary</button> --}}
+                    <button type="button" class="btn btn-outline-primary">Primary</button>
                     <div class="card-header">
                         <h4>Data Bank</h4>
                         <div class="card-header-form">
@@ -73,5 +74,5 @@
             </div>
         </div>
     </section>
-</div>
+</div> --}}
 @endsection
