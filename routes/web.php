@@ -91,5 +91,5 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     Route::delete('/bank-payment/destroy/{id}','bankController@destroy');
     // --------------------------------------------------------------------------
     Route::get('/setting', 'settingController@index');
-    Route::patch('/setting/update/','settingController@edit');
+    Route::post('/setting/update/','settingController@edit');
 });
