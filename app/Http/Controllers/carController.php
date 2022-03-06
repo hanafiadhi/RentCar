@@ -37,7 +37,7 @@ class carController extends Controller
         // $name = uniqid();
         // $thumbnail = request()->file('gambar');
         // $thumbnailURL = $thumbnail->storeAs("image/mobil","{$name}.{$thumbnail->extension()}");
-        if ($image = $request->file('image')) {
+        if ($image = $request->file('gambar')) {
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
