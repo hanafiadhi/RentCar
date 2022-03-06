@@ -19,7 +19,7 @@
                 </div>
                 @endif
                 <div class="card">
-                    <button type="button" class="btn btn-outline-primary">Primary</button>
+                    {{-- <button type="button" class="btn btn-outline-primary">Primary</button> --}}
                     <div class="card-header">
                         <h4>Data Bank</h4>
                         <div class="card-header-form">
