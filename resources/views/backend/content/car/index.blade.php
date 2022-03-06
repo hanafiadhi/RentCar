@@ -99,7 +99,7 @@
                                         </td>
                                         <td>
                                             <div class="chocolat-parent">
-                                                <a href="{{asset("/image/".$item->gambar)}}}" class="chocolat-image"
+                                                <a href="{{asset("/image/".$item->gambar)}}" class="chocolat-image"
                                                     title="Just an example">
                                                     <div data-crop-image=""
                                                         style="object-fit:cover; object-position:center">
