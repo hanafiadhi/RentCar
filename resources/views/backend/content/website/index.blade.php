@@ -29,8 +29,9 @@
             <div id="output-status"></div>
             <div class="row">
                 <div class="col-md-8 col-lg-12">
-                    <form id="setting-form" action="/setting/update/" method="POST" enctype="multipart/form-data">
+                    <form id="setting-form" action="{{route('YNTKTS')}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method("POST")
                         <div class="card" id="settings-card">
                             <div class="card-header">
                                 <h4>General Settings</h4>

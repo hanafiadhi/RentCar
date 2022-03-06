@@ -84,7 +84,8 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     Route::delete('/sosial-media/destroy/{id}','sosialMediaController@destroy');
     // -------------------------------------------------------------------------
     Route::get('/setting', 'settingController@index');
-    Route::post('/setting/update/','settingController@store');
+    Route::post('/setting/update/','settingController@store')->name('YNTKTS');
+
     Route::get('/bank-payment','bankController@index');
     Route::get('/bank-payment/create','bankController@create');
     Route::post('/bank-payment/store','bankController@store');

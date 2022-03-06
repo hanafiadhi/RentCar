@@ -1,8 +1,8 @@
 @extends('backend.full')
 
 @section('konten')
-<h1>YO ndak tau</h1>
-{{-- <div class="main-content">
+{{-- <h1>YO ndak tau</h1> --}}
+<div class="main-content">
     <section class="section">
         <div class="section-header">
             <h1>Bank</h1>
@@ -74,5 +74,5 @@
             </div>
         </div>
     </section>
-</div> --}}
+</div>
 @endsection
