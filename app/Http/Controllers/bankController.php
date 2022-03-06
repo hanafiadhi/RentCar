@@ -9,11 +9,11 @@ class bankController extends Controller
 {
     public function index(){
         $bank = Bank::all();
-        return view('backend.content.pageone',compact($bank));
+        return view('backend.content.Banks.index',compact($bank));
     }
 
     public function create(){
-        return view('backend.content.bank.create');
+        return view('backend.content.Banks.create');
     }
 
     public function store(Request $request){
@@ -34,7 +34,7 @@ class bankController extends Controller
 
     public function edit($id){
         $data = Bank::findOrFail($id);
-        return view('backend.content.bank.edit',compact('data'));
+        return view('backend.content.Banks.edit',compact('data'));
     }
 
     public function update(Request $request,$id){
@@ -44,7 +44,7 @@ class bankController extends Controller
             'atas_nama'=>'required|min:3|max:50',
             'norek'=>'required|min:8|max:50'
         ]);
-       if (request()->file('gambar')) {
+        if (request()->file('gambar')) {
             # code...
             Storage::delete($data->gambar);
             $name = uniqid();

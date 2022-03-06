@@ -83,6 +83,8 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     Route::patch('/sosial-media/update/{id}','sosialMediaController@update');
     Route::delete('/sosial-media/destroy/{id}','sosialMediaController@destroy');
     // -------------------------------------------------------------------------
+    Route::get('/setting', 'settingController@index');
+    Route::post('/setting/update/','settingController@store');
     Route::get('/bank-payment','bankController@index');
     Route::get('/bank-payment/create','bankController@create');
     Route::post('/bank-payment/store','bankController@store');
@@ -90,6 +92,5 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     Route::patch('/bank-payment/update/{id}','bankController@update');
     Route::delete('/bank-payment/destroy/{id}','bankController@destroy');
     // --------------------------------------------------------------------------
-    Route::get('/setting', 'settingController@index');
-    Route::post('/setting/update/','settingController@edit');
+
 });

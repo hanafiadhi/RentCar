@@ -11,7 +11,7 @@ class settingController extends Controller
         return view('backend.content.website.index',['data'=>Website::all()]);
     }
 
-    public function edit(Request $request,$id = 1){
+    public function store(Request $request,$id = 1){
         // dd($request->all());
         $data = website::find($id);
         if ($data ==  null) {
