@@ -71,12 +71,17 @@ class carController extends Controller
             'fitur'=> 'array|required',
         ]);
         $data = car::findOrFail($id);
-        if (request()->file('gambar')) {
-            # code...
-            Storage::delete($data->gambar);
-            $name = uniqid();
-            $thumbnail = request()->file('gambar');
-            $thumbnailURL = $thumbnail->storeAs("image/mobil","{$name}.{$thumbnail->extension()}");
+        // if (request()->file('gambar')) {
+        //     # code...
+        //     Storage::delete($data->gambar);
+        //     $name = uniqid();
+        //     $thumbnail = request()->file('gambar');
+        //     $thumbnailURL = $thumbnail->storeAs("image/mobil","{$name}.{$thumbnail->extension()}");
+        if ($image = $request->file('gambar')) {
+            $destinationPath = 'image/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $thumbnailURL = "$profileImage";
         }else{
             $thumbnailURL = $data->gambar;
         }
