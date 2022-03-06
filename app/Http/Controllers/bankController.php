@@ -9,7 +9,7 @@ class bankController extends Controller
 {
     public function index(){
         $bank = Bank::all();
-        return view('backend.content.bank.index',compact($bank));
+        return view('backend.content.pageone',compact($bank));
     }
 
     public function create(){
