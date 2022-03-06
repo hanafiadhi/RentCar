@@ -19,12 +19,12 @@
                     <div class="card shadow bg-white rounded">
                         {{-- <div class="mb-2 text-muted">Click the picture below to see the magic!</div> --}}
                         <div class="chocolat-parent">
-                            <a href="{{asset("/storage/".$item->gambar)}}" class="chocolat-image"
+                            <a href="{{asset("/image/".$item->gambar)}}" class="chocolat-image"
                                 title="Just an example">
                                 <div data-crop-image="">
                                     {{-- <img alt="image" src="{{asset('assets/img/example-image.jpg')}}"
                                     class="img-fluid"> --}}
-                                    <img alt="image" src="{{asset("/storage/".$item->gambar)}}" class="img-fluid">
+                                    <img alt="image" src="{{asset("/image/".$item->gambar)}}" class="img-fluid">
                                 </div>
                             </a>
                         </div>
