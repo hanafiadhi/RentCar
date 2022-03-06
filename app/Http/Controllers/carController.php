@@ -34,9 +34,15 @@ class carController extends Controller
             'fitur'=> 'array|required',
         ]);
         $data = $request->all();
-        $name = uniqid();
-        $thumbnail = request()->file('gambar');
-        $thumbnailURL = $thumbnail->storeAs("image/mobil","{$name}.{$thumbnail->extension()}");
+        // $name = uniqid();
+        // $thumbnail = request()->file('gambar');
+        // $thumbnailURL = $thumbnail->storeAs("image/mobil","{$name}.{$thumbnail->extension()}");
+        if ($image = $request->file('image')) {
+            $destinationPath = 'image/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $thumbnailURL = "$profileImage";
+        }
         $data['gambar']= $thumbnailURL;
         $create = car::create($data);
         $create->fiturs()->attach(request('fitur'));

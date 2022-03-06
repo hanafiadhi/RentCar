@@ -105,6 +105,8 @@
                                                         style="object-fit:cover; object-position:center">
                                                         <img alt="image" src="{{asset("/storage/".$item->gambar)}}"
                                                             class="img-fluid">
+                                                        <img alt="image" src="/image/{{$item->gambar)}}"
+                                                            class="img-fluid">
                                                     </div>
                                                 </a>
                                             </div>
