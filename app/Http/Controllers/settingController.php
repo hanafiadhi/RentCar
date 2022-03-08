@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\website;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 class settingController extends Controller
 {
     public function index(){
@@ -17,22 +17,25 @@ class settingController extends Controller
         if ($data ==  null) {
             # code...
             $request->validate([
-            'app_name'=>'required',
-            'site_desciption'=>'required',
-            'Logo'=> 'required|image|mimes:jpg,png,jpeg|max:1024',
-            'favicon'=> 'required|image|mimes:jpg,png,jpeg|max:1024'
-        ]   );
-            if(request()->file('Logo')) {
+                'app_name'=>'required',
+                'site_desciption'=>'required',
+                'Logo'=> 'required|image|mimes:jpg,png,jpeg|max:1024',
+                'favicon'=> 'required|image|mimes:jpg,png,jpeg|max:1024'
+            ]);
+            if($logo = request()->file('Logo')) {
+                # code...
+                    $destinationPath = 'webset/';
+                    $Image = uniqid(). "." . $logo->getClientOriginalExtension();
+                    $logo->move($destinationPath, $Image);
+                    $logoUrl = "$Image";
+                }
+            
+            if ($favicon = request()->file('favicon')) {
             # code...
-                $name = uniqid();
-                $logo = request()->file('Logo');
-                $logoUrl = $logo->storeAs("image/setting","{$name}.{$logo->extension()}");
-            }
-            if (request()->file('favicon')) {
-            # code...
-                $name = uniqid();
-                $favicon = request()->file('favicon');
-                $faviconUrl = $favicon->storeAs("image/setting","{$name}.{$favicon->extension()}");
+                $destinationPath = 'webset/';
+                $Namefavico = date('YmdHis'). "." . $favicon->getClientOriginalExtension();
+                $favicon->move($destinationPath, $Namefavico);
+                $faviconUrl = "$Namefavico";
             }
             website::create([
                 'app_name'=> $request->app_name,
@@ -49,21 +52,30 @@ class settingController extends Controller
             'Logo'=> 'image|mimes:jpg,png,jpeg|max:1024',
             'favicon'=> 'image|mimes:jpg,png,jpeg|max:1024'
             ]);
-            if (request()->file('Logo')) {
+            if($logo = request()->file('Logo')) {
                 # code...
-                Storage::delete($data->Logo);
-                $name = uniqid();
-                $logo = request()->file('Logo');
-                $logoUrl = $logo->storeAs("image/setting","{$name}.{$logo->extension()}");
-            }else{
+                if(File::exists(public_path('/webset/'.$data->Logo))) {
+                    File::delete(public_path('/webset/'.$data->Logo));
+                    // dd('ada');
+                }
+                    $destinationPath = 'webset/';
+                    $Image = uniqid(). "." . $logo->getClientOriginalExtension();
+                    $logo->move($destinationPath, $Image);
+                    $logoUrl = "$Image";
+                }
+            else{
                 $logoUrl = $data->Logo;
             }
-            if (request()->file('favicon')) {
-                # code...
-                Storage::delete($data->favicon);
-                $name = uniqid();
-                $favicon = request()->file('favicon');
-                $faviconUrl = $favicon->storeAs("image/setting","{$name}.{$favicon->extension()}");
+            if ($favicon = request()->file('favicon')) {
+            # code...
+                if(File::exists(public_path('/webset/'.$data->favicon))) {
+                    File::delete(public_path('/webset/'.$data->favicon));
+                        // dd('ada');
+                }
+                $destinationPath = 'webset/';
+                $Namefavico = date('YmdHis'). "." . $favicon->getClientOriginalExtension();
+                $favicon->move($destinationPath, $Namefavico);
+                $faviconUrl = "$Namefavico";
             }else{
                 $faviconUrl = $data->favicon;
             }

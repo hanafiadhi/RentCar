@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="login-brand">
-       <img src="{{asset('/storage/'.\App\website::first()->Logo ?? '')}}" alt="logo" width="100" class="shadow-light rounded-circle">
+    <img src="{{asset('/webset/'.\App\website::get('Logo')->first() ?? '')}}" alt="logo" width="100" class="shadow-light rounded-circle">
         <a href="/">{{\App\website::first()->app_name ?? 'Rental Mobil'}}</a>
     </div>
     <div class="row justify-content-center">

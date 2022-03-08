@@ -94,7 +94,4 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     Route::patch('/bank-payment/update/{id}','bankController@update');
     Route::delete('/bank-payment/destroy/{id}','bankController@destroy');
     // --------------------------------------------------------------------------
-    Route::get('/linkstorage', function () {
-        Artisan::call('storage:link');
-    });
 });

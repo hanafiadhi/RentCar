@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bank;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 class bankController extends Controller
 {
     public function index(){
@@ -24,10 +25,13 @@ class bankController extends Controller
             'norek'=>'required|min:8|max:50'
         ]);
         $data = $request->all();
-        $name = uniqid();
-        $thumbnail = request()->file('gambar');
-        $thumbnailURL = $thumbnail->storeAs("image/bank","{$name}.{$thumbnail->extension()}");
-        $data['gambar']= $thumbnailURL;
+        if ($image = $request->file('gambar')) {
+            $destinationPath = 'bank/';
+            $BankImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $BankImage);
+            $thumbnailbank = "$BankImage";
+        }
+        $data['gambar']= $thumbnailbank;
         Bank::create($data);
         return redirect('/bank-payment')->with('success','data Berhasil di input');
     }
@@ -44,17 +48,19 @@ class bankController extends Controller
             'atas_nama'=>'required|min:3|max:50',
             'norek'=>'required|min:8|max:50'
         ]);
-        if (request()->file('gambar')) {
-            # code...
-            Storage::delete($data->gambar);
-            $name = uniqid();
-            $thumbnail = request()->file('gambar');
-            $thumbnailURL = $thumbnail->storeAs("image/bank","{$name}.{$thumbnail->extension()}");
+        if ($image = $request->file('gambar')) {
+            $destinationPath = 'bank/';
+            $BankImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            if($a = File::exists(public_path('bank/'.$data->gambar))) {
+                File::delete(public_path('/bank/'.$data->gambar));
+            }
+            $image->move($destinationPath, $BankImage);
+            $thumbnailbank = "$BankImage";
         }else{
-            $thumbnailURL = $data->gambar;
+            $thumbnailbank = $data->gambar;
         }
         $Req = $request->all();
-        $Req['gambar'] = $thumbnailURL;
+        $Req['gambar'] = $thumbnailbank;
         $data->update($Req);
         return redirect('/bank-payment')->with('success','data Berhasil di update');
     }
@@ -62,7 +68,9 @@ class bankController extends Controller
     public function destroy($id){
         $data = Bank::findOrFail($id);
         $data->delete();
-        Storage::delete($data->gambar);
+        if(File::exists(public_path('bank/'.$data->gambar))) {
+            File::delete(public_path('bank/'.$data->gambar));
+        }
         return redirect('/bank-payment')->with('success','data Berhasil di Hapus');
     }
 }

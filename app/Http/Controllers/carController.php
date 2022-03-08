@@ -6,8 +6,7 @@ use App\car;
 use App\Fitur;
 use App\type;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\File;
 class carController extends Controller
 {
     public function index(){
@@ -34,9 +33,6 @@ class carController extends Controller
             'fitur'=> 'array|required',
         ]);
         $data = $request->all();
-        // $name = uniqid();
-        // $thumbnail = request()->file('gambar');
-        // $thumbnailURL = $thumbnail->storeAs("image/mobil","{$name}.{$thumbnail->extension()}");
         if ($image = $request->file('gambar')) {
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
@@ -71,13 +67,10 @@ class carController extends Controller
             'fitur'=> 'array|required',
         ]);
         $data = car::findOrFail($id);
-        // if (request()->file('gambar')) {
-        //     # code...
-        //     Storage::delete($data->gambar);
-        //     $name = uniqid();
-        //     $thumbnail = request()->file('gambar');
-        //     $thumbnailURL = $thumbnail->storeAs("image/mobil","{$name}.{$thumbnail->extension()}");
         if ($image = $request->file('gambar')) {
+            if(File::exists(public_path('/image/'.$data->gambar))) {
+                File::delete(public_path('/image/'.$data->gambar));
+            }
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
@@ -94,7 +87,9 @@ class carController extends Controller
 
     public function destroy($id){
         $data = car::findOrFail($id);
-        Storage::delete($data->gambar);
+        if(File::exists(public_path('/image/'.$data->gambar))) {
+            File::delete(public_path('/image/'.$data->gambar));
+        }
         $data->fiturs()->detach();
         $data->delete($id);
         return redirect('/data-mobil')->with('success','Data mobil Berhasil di Hapus');
