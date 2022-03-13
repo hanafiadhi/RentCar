@@ -130,7 +130,7 @@
                                             @foreach ($bank as $pay)
                                             <label>
                                                 <input type="radio" name="bank" value="{{$pay->id}}">
-                                                <img src="{{asset('/storage/'.$pay->gambar)}}" style="max-height: 50px">
+                                                <img src="{{asset('/bank/'.$pay->gambar)}}" style="max-height: 50px">
                                             </label>
                                             @endforeach
                                             @if ($message = Session::get('warning'))

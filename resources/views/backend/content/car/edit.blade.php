@@ -36,7 +36,7 @@
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Upload Foto
                                         Mobil</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <img id="output" src="{{asset("/storage/".$data->gambar)}}" class="img-thumbnail">
+                                        <img id="output" src="{{asset("/image/".$data->gambar)}}" class="img-thumbnail">
                                         <input name="gambar" class="form-control" type="file" accept="image/*"
                                             onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
                                         @error('gambar')

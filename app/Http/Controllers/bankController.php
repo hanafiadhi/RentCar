@@ -46,7 +46,8 @@ class bankController extends Controller
         $request->validate([
             'nama_bank'=>'required|min:3|max:20',
             'atas_nama'=>'required|min:3|max:50',
-            'norek'=>'required|min:8|max:50'
+            'norek'=>'required|min:8|max:50',
+            'gambar'=>'image|mimes:jpg,png,jpeg|max:2048'
         ]);
         if ($image = $request->file('gambar')) {
             $destinationPath = 'bank/';

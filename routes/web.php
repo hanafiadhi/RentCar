@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/','frontendController@index');
 Route::get('/mobil','frontendController@car');
 Route::get('/detail-mobil/{id}','frontendController@carDetails')->name('detail');
-
+Route::get('/jenis-mobil/{id}','frontendController@cartype');
 // !!------------------frontend--------------------!!
 // Route::fallback(function () {
 //     abort(404);
@@ -40,8 +40,8 @@ Route::group(['middleware' =>['auth','verified']], function () {
     Route::post('/stepFour','transaksiController@step4')->name('stepFour');
 });
 // ----------backend---------------------------------
-// Auth::routes(['verify' => true]);
-Auth::routes();
+Auth::routes(['verify' => true]);
+// Auth::routes();
 
 Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     //
@@ -77,6 +77,13 @@ Route::group(['middleware' =>['auth','verified','role:admin']], function () {
     Route::get('/user-biasa/details/{id}','userBiasaController@details');
     Route::delete('/user-biasa/destroy/{id}','userBiasaController@destroy');
     //----------------------------------------------------------------------
+    Route::get('/transaksi','adminTransController@index');
+    Route::get('/transaksi-detail/{id}','adminTransController@details');
+    Route::patch('/transaksi/update/{id}','adminTransController@update');
+    Route::post('/transaksi/download/{id}','adminTransController@download');
+    Route::post('/transaksi/pengembalian/{id}','adminTransController@pengembalian');
+    Route::delete('/transaksi/destroy/{id}','adminTransController@destroy');
+    // ------------------------------------------------------------------------
     Route::get('/sosial-media','sosialMediaController@index');
     Route::get('/sosial-media/create','sosialMediaController@create');
     Route::post('/sosial-media/store','sosialMediaController@store');

@@ -19,11 +19,16 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Foto Bank</h4>
+                                {{-- <div class="section-header-breadcrumb">
+                                    <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+                                    <div class="breadcrumb-item"><a href="/bank-payment">Bank</a></div>
+                                    <div class="breadcrumb-item">Form edit</div>
+                                </div> --}}
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <img id="output" src="{{asset("/storage/".$data->gambar)}}" class="img-thumbnail">
+                                        <img id="output" src="{{asset("/bank/".$data->gambar)}}" class="img-thumbnail">
                                         <input name="gambar" class="form-control" type="file" accept="image/*"
                                             onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
                                         @error('gambar')

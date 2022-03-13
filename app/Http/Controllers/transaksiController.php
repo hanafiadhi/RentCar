@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Bank;
 use App\car;
+use App\Mail\orderEmail;
 use App\Transaction;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use DateTime;
@@ -16,7 +18,6 @@ class transaksiController extends Controller
 {
     //
     public function stepTwo(Request $request){
-      
         $todayDate = date('Y-m-d');
         // dd($request->all());
         $validator = Validator::make($request->all(),[
@@ -105,8 +106,11 @@ class transaksiController extends Controller
             # code...
             return redirect()->back()->withwarning('Try Again');
         }
-        $invoice = Str::random(7);
         $order = $request->session()->get('data');
+        if ($order == null) {
+            # code...
+            return redirect('/');
+        }
         // dd($order);
         $data = [
             'users_id'=> auth()->id(),
@@ -124,6 +128,7 @@ class transaksiController extends Controller
             'norek'=> $cekBank->norek,
             'total_bayar'=> $order->total_bayar,
             'total_denda'=> '0',
+            'bukti_bayar'=> 'null',
             'start_date'=> $order['start_date'],
             'end_date'=>$order['end_date'],
             'status'=> '1'
@@ -133,14 +138,36 @@ class transaksiController extends Controller
         return redirect()->route('invoice',$a->id)->with('success','Orderan Berhasil di buat');
     }
     public function step4(Request $request){
-        
-        $validator = Validator::make($request->all(),['gambar'=> 'required']);
+        $validator = Validator::make($request->all(),[
+            'gambar'=> 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'id'=>'required|integer'
+        ]);
 
         if ($validator->fails()) {
             # code...
             return redirect()->back()->withErrors($validator);
         }
+        $invoice = Str::random(7);
+        $data = Transaction::findOrFail($request->id);
+        if ($image = $request->file('gambar')) {
+            $destinationPath = 'bukti-pembayaran/';
+            $PaymentImage = $invoice . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $PaymentImage);
+            $proofPayment = "$PaymentImage";
+        }
+        $data->update([
+            'bukti_bayar'=> $proofPayment,
+            'status'=> '2',
+            'invoice'=> $invoice
+        ]);
+        $myEmail = env('MAIL_USERNAME');
+        $details = [
+            'title' => 'New Booking',
+            'url' => env('APP_URL')
+        ];
+        Mail::to($myEmail)->send(new orderEmail($details));
+        // dd("Mail Send Successfully");
         // return redirect('/my-transaction');
-        return redirect()->back()->with('upload','Berhasil Upload Bukti Pembayaran');
+        return redirect()->back()->with('upload','Berhasil Upload Bukti Pembayaran, Kami akan mengkonformasi sesegera mungkin');
     }
 }

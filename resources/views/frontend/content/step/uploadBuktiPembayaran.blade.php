@@ -4,7 +4,7 @@
     <section class="section">
         <div class="section-header">
             <div class="d-flex justify-content-center">
-                <h1>Detail Pesanan</h1>
+                <h1>{{$message ?? 'Detail Pesanan'}}</h1>
             </div>
         </div>
     </section>
@@ -18,7 +18,7 @@
     @endif
     <div class="section-body">
         <div class="row">
-            <div class="col-12 col-sm-8 col-lg-8">
+            <div class="col-12 {{$data->status != 1 ? '' : 'col-sm-8 col-lg-8' }}">
                 <div class="invoice">
                     <div class="invoice-print">
                         <div class="row">
@@ -42,22 +42,36 @@
                                             No Handphone :{{$data->no_handphone}}<br>
                                         </address>
                                     </div>
-                                    {{-- <div class="col-md-6 text-md-right">
-                                            <address>
-                                                <strong>Shipped To:</strong><br>
-                                                Muhamad Nauval Azhar<br>
-                                                1234 Main<br>
-                                                Apt. 4B<br>
-                                                Bogor Barat, Indonesia
-                                            </address>
-                                        </div> --}}
+                                    <div class="ml-auto">
+                                        <strong>Status Booking</strong><br>
+                                        @switch($data->status)
+                                        @case(1)
+                                        <p class="text-danger"><i class="fas fa-credit-card"></i> Belum Bayar</p>
+                                        @break
+                                        @case(2)
+                                        <p class="text-warning"><i class="fas fa-stopwatch"></i> Menunggu Confirmasi
+                                            admin
+                                        </p>
+                                        @break
+                                        @case(3)
+                                        <p class="text-warning"><i class="fas fa-shipping-fast"></i>Rental Berjalan </p>
+                                        @break
+                                        @case(4)
+                                        <p class="text-warning"><i class="fas fa-stopwatch"></i> Rental Selesai</p>
+                                        @break
+                                        @case(5)
+                                        <p class="text-warning"><i class="fas fa-stopwatch"></i>Rental Gagal</p>
+                                        @break
+                                        @default
+                                        @endswitch
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <address>
                                             <strong>Payment Method:</strong><br>
                                             @if($data->bank()->get('gambar')->count() !== 0)
-                                            <img src="{{asset('/storage/'.$data->bank()->get('gambar')->first()->gambar)}}"
+                                            <img src="{{asset('/bank/'.$data->bank()->get('gambar')->first()->gambar)}}"
                                                 style="max-height: 50px">
                                             @else
                                             {{$data->nama_bank}}<br>
@@ -104,21 +118,6 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-8">
-                                        {{-- @if($data->bank()->get('gambar')->count() !== 0)
-                                        <section class="section">
-                                            <div class="section-title">Payment Method</div>
-                                        </section>
-                                        <p class="section-lead">
-                                        </p>
-                                        <div class="d-flex">
-                                            <img src="{{asset('/storage/'.$data->bank()->get('gambar')->first()->gambar)}}"
-                                                style="max-height: 50px">
-
-                                            <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
-                                                <div class="mr-2 bg-mastercard" data-width="61" data-height="38"></div>
-                                                <div class="bg-paypal" data-width="61" data-height="38"></div>
-                                        </div>
-                                        @endif --}}
                                     </div>
                                     <div class="col-lg-4 text-right">
                                         <div class="invoice-detail-item">
@@ -144,23 +143,19 @@
                     </div>
                 </div>
             </div>
+            @if ($data->status == '1')
             <div class="col-12 col-sm-4 col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-dark">Upload Bukti Pembayaran</h4>
-                        {{-- <div class="card-header-action">
-                                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-info" href="#"><i
-                                        class="fas fa-minus"></i></a>
-                            </div> --}}
+
                     </div>
                     <div class="card-body">
-                        {{-- <h6 class="text-center">Invoice :</h6>
-                        <h6 class="text-center text-dark">Order#{{$data->invoice}}</h6>
-                        <br> --}}
+
                         <h6 class="text-center">Transfer Ke Bank :</h6>
                         @if($data->bank()->get('gambar')->count() !== 0)
                         <div class="d-flex justify-content-center">
-                            <img src="{{asset('/storage/'.$data->bank()->get('gambar')->first()->gambar)}}"
+                            <img src="{{asset('/bank/'.$data->bank()->get('gambar')->first()->gambar)}}"
                                 style="max-height: 50px">
                         </div>
                         @else
@@ -172,8 +167,9 @@
                         <hr>
                         <p class="text-center">Total Bayar : </p>
                         <h5 class="text-center text-warning font-weight-bold">
-                            {{"Rp".number_format($data->harga*$data->durasi)}}</h5>
+                            {{"Rp".number_format($data->total_bayar)}}</h5>
                         <br>
+
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <p>
@@ -194,6 +190,7 @@
                                 </div>
                             </li>
                         </ul>
+
                         <div>
                             <br>
                             <p class="text-center"><strong>Upload Bukti Pembayaran</strong></p>
@@ -202,6 +199,7 @@
                                 <form action="{{route('stepFour')}}" method="post" id="formUpload"
                                     enctype="multipart/form-data">
                                     @csrf
+                                    <input type="hidden" name="id" value="{{$data->id}}">
                                     <input required name="gambar" class="form-control" type="file" accept="image/*"
                                         onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
                                     @error('gambar')
@@ -211,23 +209,23 @@
                                 <div class="chocolat-parent">
                                     <div data-crop-image="">
                                         <img id="output" class="img-thumbnail" lass="chocolat-image">
-                                        {{-- <img alt="image" src="{{asset('assets/img/example-image.jpg')}}"
-                                        class="img-fluid"> --}}
+
                                     </div>
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        {{-- 
                         <div class="d-flex justify-content-center">
-                            {{-- <button type="reset" class="btn btn-outline-danger btn-sm mt-3"><i
-                                    class="fas fa-dolly-flatbed"></i>Bayar Nanti</button> &nbsp; --}}
+                            <button type="reset" class="btn btn-outline-danger btn-sm mt-3"><i
+                                class="fas fa-dolly-flatbed"></i>Bayar Nanti</button> &nbsp;
                             <a href="/mobil" class="btn btn-outline-success  mt-3 btn-block"><i
-                                    class="fas fa-info-circle"></i>Upload bukti</a>
-                        </div>
+                                class="fas fa-info-circle"></i>Upload bukti</a>
+                        </div> --}}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-success  mt-3 btn-block" data-toggle="modal"
+                        <button type="button" class="btn btn-outline-primary  mt-3 btn-block" data-toggle="modal"
                             data-target="#staticBackdrop">
-                            <i class="fas fa-info-circle"></i> Upload bukti
+                            <i class="fas fa-credit-card"></i> Upload bukti
                         </button>
 
                         <!-- Modal -->
@@ -258,6 +256,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     {{-- </section> --}}

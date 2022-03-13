@@ -28,7 +28,7 @@
                 <a href="/user-biasa"><i class="far fa-user"></i><span>User</span></a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#"><i class="fas fa-dolly"></i><span>Transaksi</span></a>
+                <a href="/transaksi"><i class="fas fa-dolly"></i><span>Transaksi</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#"><i class="fas fa-flag"></i><span>Laporan</span></a>

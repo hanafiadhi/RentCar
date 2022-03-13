@@ -4,6 +4,11 @@
     <section class="section">
         <div class="section-header">
             <h1>User Profil</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+                <div class="breadcrumb-item"><a href="/user-biasa">Manajemen User</a></div>
+                <div class="breadcrumb-item">Detail User</div>
+            </div>
         </div>
         @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -91,55 +96,53 @@
                                 @method('patch')
                                 <div class="form-group">
                                     <label for="old_password">{{ __('Password') }}</label>
-                                    <input id="password" type="password"
-                                        class="form-control @error('old_password') is-invalid @enderror"
-                                        name="old_password" autocomplete="new-password">
-                                    @error('old_password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">{{ __('New Password') }}</label>
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        autocomplete="new-password">
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="password-confirm" class="">{{ __('Confirm Password') }}</label>
-                                    <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" autocomplete="new-password">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-warning">Reset</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>My Picture</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-2 text-muted">Click the picture below to see the magic!</div>
-                            <div class="chocolat-parent">
-                                <a href="../dist/img/example-image.jpg" class="chocolat-image" title="Just an example">
-                                    <div data-crop-image="285">
-                                        <img alt="image" src="../dist/img/example-image.jpg" class="img-fluid">
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+                <input id="password" type="password" class="form-control @error('old_password') is-invalid @enderror"
+                    name="old_password" autocomplete="new-password">
+                @error('old_password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
-    </section>
+            <div class="form-group">
+                <label for="password">{{ __('New Password') }}</label>
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" autocomplete="new-password">
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="password-confirm" class="">{{ __('Confirm Password') }}</label>
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                    autocomplete="new-password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-warning">Reset</button>
+            </form>
+        </div>
+</div>
+</div>
+<div class="col-6">
+    <div class="card">
+        <div class="card-header">
+            <h4>My Picture</h4>
+        </div>
+        <div class="card-body">
+            <div class="mb-2 text-muted">Click the picture below to see the magic!</div>
+            <div class="chocolat-parent">
+                <a href="../dist/img/example-image.jpg" class="chocolat-image" title="Just an example">
+                    <div data-crop-image="285">
+                        <img alt="image" src="../dist/img/example-image.jpg" class="img-fluid">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div> --}}
+</div>
+</section>
 </div>
 @endsection

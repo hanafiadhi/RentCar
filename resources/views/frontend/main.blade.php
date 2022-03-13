@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>{{ \App\website::first()->app_name ?? 'Rental Mobil'}} | {{$title ?? ''}}</title>
-    {{-- <title>{{\App\website::first()->app_name ?? 'Rental Mobil'.' | '.$tittle ?? ''}}</title> --}}
-    <meta name="description" content="{{\App\website::first()->site_desciption ?? 'Rental Mobil'}}">
-    <link rel="icon" type="image/x-icon" href="{{ \App\website::get('favicon')->first() ? asset('/webset/'.\App\website::get('favicon')->first()) : ''}}">
+    <title>{{ \App\website::get('app_name')->first()->app_name ?? 'Rental Mobil'}} | {{$title ?? ''}}</title>
+    <meta name="description"
+        content="{{\App\website::get('site_desciption')->first()->site_desciption ?? 'Rental Mobil'}}">
+    <link rel="icon" type="image/x-icon"
+        href="{{ \App\website::get('favicon')->first() ? asset('/webset/'.\App\website::get('favicon')->first()->favicon) : ''}}">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -29,9 +30,9 @@
         <div class="main-wrapper container">
             <div class="navbar-bg"></div>
             <nav class="navbar navbar-expand-lg main-navbar">
-                <a href="/"
-                    class="navbar-brand sidebar-gone-hide">
-                    <img src="{{asset('/webset/'.\App\website::get('Logo')->first() ?? '')}}" style="max-height: 70px" alt="" srcset="">
+                <a href="/" class="navbar-brand sidebar-gone-hide">
+                    <img src="{{asset('/webset/'.\App\website::get('Logo')->first()->Logo ?? '')}}"
+                        style="max-height: 70px" alt="" srcset="">
                     {{-- {{\App\website::first()->app_name ?? 'Rental Mobil'}}</a> --}}
                 <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
                 <div class="nav-collapse">
@@ -40,12 +41,13 @@
                     </a>
                     <ul class="navbar-nav">
                         @foreach (\App\Sosial::get() as $item)
-                        <li class="nav-item"><a href="{{$item->url}}" class="nav-link">{!!$item->icon!!}&nbsp;{{$item->nama}}</a>
+                        <li class="nav-item"><a href="{{$item->url}}"
+                                class="nav-link">{!!$item->icon!!}&nbsp;{{$item->nama}}</a>
                         </li>
                         @endforeach
                     </ul>
                 </div>
-                <form class="form-inline ml-auto">
+                {{-- <form class="form-inline ml-auto">
                     <ul class="navbar-nav">
                         <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
                                     class="fas fa-search"></i></a></li>
@@ -55,7 +57,7 @@
                             data-width="250">
                         <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                         <div class="search-backdrop"></div>
-                        {{-- <div class="search-result">
+                        <div class="search-result">
                             <div class="search-header">
                                 Histories
                             </div>
@@ -114,10 +116,10 @@
                                     Create a new Homepage Design
                                 </a>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
-                </form>
-                <ul class="navbar-nav navbar-right">
+                </form> --}}
+                <ul class="navbar-nav navbar-right ml-auto">
                     <li class=""><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"></a>
                     </li>
                     <li class=""><a href="#" data-toggle="dropdown"
@@ -144,11 +146,11 @@
                             {{-- <a href="/my-profil" class="dropdown-item has-icon beep">
                                 <i class="far fa-user-circle"></i>Profilku
                             </a> --}}
-                            {{-- @if (Auth::user()->email_verified_at == null)
+                            @if (Auth::user()->email_verified_at == null)
                             <a href="/email/verify" class="dropdown-item has-icon beep">
-                               <i class="fas fa-ban"></i>Verifikasi Akun
+                                <i class="fas fa-ban"></i>Verifikasi Akun
                             </a>
-                            @endif --}}
+                            @endif
                             <a href="/my-transaction" class="dropdown-item has-icon beep">
                                 <i class="fas fa-wallet"></i>Transaksi Kamu
                             </a>
@@ -192,23 +194,16 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i
-                                    class="far fa-clone"></i><span>Tipe Mobil</span></a>
+                                    class="fas fa-vote-yea"></i><span>Jenis Mobil</span></a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="#" class="nav-link">Not Dropdown Link</a></li>
-                                {{-- <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Hover Me</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                        <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Link
-                                                2</a>
-                                            <ul class="dropdown-menu">
-                                                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item"><a href="#" class="nav-link">Link 3</a></li>
-                                    </ul>
-                                </li> --}}
+                                <?php
+                                    $data = \App\type::get()
+                                ?>
+                                @if ($data->count() != 0)
+                                @foreach ($data as $singsing)
+                                <li class="nav-item"><a href="/jenis-mobil/{{$singsing->id}}" class="nav-link">{{$singsing->nama_tipe}}</a></li>
+                                @endforeach
+                                @endif
                             </ul>
                         </li>
                     </ul>

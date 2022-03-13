@@ -18,6 +18,6 @@ class userBiasaController extends Controller
         $user = User::findOrFail($id);
         $user->removeRole('user');
         $user->delete();
-        return redirect('/user-biasa')->with('success','Fitur '.$user->name.' berhasil di delete');
+        return redirect('/user-biasa')->with('success','User '.$user->name.' berhasil di delete');
     }
 }

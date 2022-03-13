@@ -3,9 +3,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <div class="d-flex justify-content-center">
-                <h1>Mobil</h1>
+
+            <h1>Mobil</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="/">Home</a></div>
+                <div class="breadcrumb-item"><a href="/mobil">Semua Mobil</a></div>
+                <div class="breadcrumb-item">Detail Mobil</div>
             </div>
+
         </div>
     </section>
     <div class="section-body">
@@ -15,10 +20,10 @@
                     <div class="row">
                         <div class="col-12 col-sm-6 col-6">
                             <div class="chocolat-parent mb-2">
-                                <a href="{{asset("/storage/".$cek->gambar)}}" class="chocolat-image"
+                                <a href="{{asset("/image/".$cek->gambar)}}" class="chocolat-image"
                                     title="Just an example">
                                     <div data-crop-image="">
-                                        <img alt="image" src="{{asset("/storage/".$cek->gambar)}}" class="img-fluid">
+                                        <img alt="image" src="{{asset("/image/".$cek->gambar)}}" class="img-fluid">
                                     </div>
                                 </a>
                             </div>
@@ -40,7 +45,7 @@
                                 <div class="mt-3">
                                     <i class="fas fa-user-tie" style="font-size: 20px;color:black;"> Driver : </i>
                                     @if ($cek->sopir == 'ready')
-                                    <i class="fas fa-check"  style="color: limegreen; font-size:20px"></i>
+                                    <i class="fas fa-check" style="color: limegreen; font-size:20px"></i>
                                     @else
                                     <i class="fas fa-ban" style="color: red;font-size:20px"></i>
                                     @endif
@@ -63,8 +68,8 @@
                             <hr>
                             <div class="container mt-4">
                                 <div class="d-flex justify-content-between">
-                                    <a href="#" class="btn btn-outline-success btn-lg"><i
-                                            class="fab fa-whatsapp"></i>WhatsApp</a>
+                                    <a href="#" class="btn btn-outline-success btn-lg"><i class="fab fa-whatsapp"></i>
+                                        WhatsApp</a>
 
                                     <div class="modal fade" id="staticBackdrop" data-backdrop="static"
                                         data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"

@@ -25,6 +25,7 @@ class userController extends Controller
         $data = Transaction::where('users_id',Auth::user()->id)->where('id',$id)->firstOrFail();
         // dd($data);
         // dd($data->bank()->get());
-        return view('frontend.content.step.uploadBuktiPembayaran',compact('data'));
+        $message = 'Transaksi ku';
+        return view('frontend.content.step.uploadBuktiPembayaran',compact('data','message'));
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Bank;
+use App\website;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 class sosialSeed extends Seeder
@@ -60,6 +61,12 @@ class sosialSeed extends Seeder
             'nama_bank'=>'BCA',
             'atas_nama'=>'Admin',
             'norek'=> 12345678
+        ]);
+        website::create([
+            'app_name'=> 'YNTKTS',
+            'site_desciption'=> 'YNTKTS',
+            'favicon'=> 'YNTKTS',
+            'Logo'=> 'YNTKTS'
         ]);
     }
 }

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\car;
-use App\Transaction;
+use App\type;
+
+use function PHPSTORM_META\type;
+
 class frontendController extends Controller
 {
     public function index(){
@@ -23,5 +26,14 @@ class frontendController extends Controller
             return redirect()->back();
         }
         return view('frontend.content.detailMobil',compact('cek'));
+    }
+
+    public function cartype($id){
+        $data = type::findOrFail($id);
+        return view('frontend.content.listMobil',
+        [
+            'car'=> $data->cars()->get(),
+            'message'=> $data->nama_tipe
+        ]);
     }
 }

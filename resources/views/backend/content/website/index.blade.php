@@ -66,8 +66,8 @@
                                     <div class="col-sm-6 col-md-9">
                                         <div class="custom-file">
                                             <img id="output" class="img-thumbnail rounded mx-auto d-block"
-                                                style="height: 200px; width:200px; object-fit:cover; object-position:center"
-                                                @isset($data[0]) src="{{asset("/storage/".$data[0]['Logo'])}}" @endisset
+                                                style="max-height:250px;object-fit:fill; object-position:center"
+                                                @isset($data[0]) src="{{asset("/webset/".$data[0]['Logo'])}}" @endisset
                                                 class="img-thumbnail">
                                             <input name="Logo" class="form-control" type="file" accept="image/*"
                                                 onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
@@ -84,8 +84,8 @@
                                     <div class="col-sm-6 col-md-9">
                                         <div class="custom-file">
                                             <img id="outputfavicon" class="img-thumbnail rounded mx-auto d-block"
-                                                style="height: 200px; width:200px; object-fit:cover; object-position:center"
-                                                @isset($data[0]) src="{{asset("/storage/".$data[0]['favicon'])}}"
+                                                style="max-height: 100px;object-fit:cover; object-position:center"
+                                                @isset($data[0]) src="{{asset("/webset/".$data[0]['favicon'])}}"
                                                 @endisset class="img-thumbnail">
                                             <input name="favicon" class="form-control" type="file" accept="image/*"
                                                 onchange="document.getElementById('outputfavicon').src = window.URL.createObjectURL(this.files[0])">

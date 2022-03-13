@@ -6,11 +6,19 @@
             <h1>Manajemen user</h1>
         </div>
     </section>
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{session('success')}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="section-body">
         <div class="card">
             <div class="card-header">
-                <h4>Data admin</h4>
-                <div class="card-header-form">
+                <h4>Data User</h4>
+                {{-- <div class="card-header-form">
                     <form>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search">
@@ -19,7 +27,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -51,15 +59,41 @@
                                 @endif
                             </td>
                             <td>
-                                <form action="/user-biasa/destroy/{{$item->id}}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <a href="/user-biasa/details/{{$item->id}}"
-                                        class="btn btn-sm btn-primary btn-action" data-toggle="tooltip"
-                                        title="Detail"><i class="fas fa-info-circle"></i></a>
-                                    <button type="submit" class="btn btn-sm btn-danger btn-action" data-toggle="tooltip"
-                                        title="Hapus"><i class="fas fa-trash"></i></a></button>
-                                </form>
+                                <a href="/user-biasa/details/{{$item->id}}" class="btn btn-sm btn-primary btn-action"
+                                    data-toggle="tooltip" title="Detail"><i class="fas fa-info-circle"></i></a>
+                                <button type="submit" data-toggle="modal" data-target="#staticBackdrop"
+                                    class="btn btn-sm btn-danger btn-action" data-toggle="tooltip" title="Hapus"><i
+                                        class="fas fa-trash"></i></a></button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">konfirmasi
+                                                    penghapusan
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="text-justify text-danger">Apakah Anda Yakin Ingin
+                                                    menghapusnya?</p>
+                                                <form action="/user-biasa/destroy/{{$item->id}}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         @endforeach

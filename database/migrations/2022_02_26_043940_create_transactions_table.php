@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('users_id')->nullable();
             $table->foreignId('cars_id')->nullable();
             $table->foreignId('banks_id')->nullable();
-            $table->string('invoice');
+            $table->string('invoice')->nullable();
             $table->string('nama');
             $table->string('email');
             $table->string('no_handphone');
@@ -27,8 +27,9 @@ class CreateTransactionsTable extends Migration
             $table->string('nama_bank');
             $table->string('atas_nama');
             $table->string('norek');
-            $table->string('total_denda');
             $table->string('total_bayar');
+            $table->string('bukti_Bayar');
+            $table->string('total_denda');
             $table->date('start_date');
             $table->string('durasi');
             $table->date('end_date');
