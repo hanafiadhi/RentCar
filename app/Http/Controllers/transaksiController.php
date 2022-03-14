@@ -158,7 +158,7 @@ class transaksiController extends Controller
             $proofPayment = "$PaymentImage";
         }
         $data->update([
-            'bukti_bayar'=> $proofPayment,
+            'bukti_Bayar'=> $proofPayment,
             'status'=> '2',
             'invoice'=> $invoice
         ]);
