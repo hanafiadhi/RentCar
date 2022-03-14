@@ -48,6 +48,7 @@ class transaksiController extends Controller
                 'harga'=> $cekMobil->harga,
                 'durasi'=>$durasi,
                 'total_bayar'=> $harga,
+                'denda' => $cekMobil->denda,
                 'order'=> Carbon::now()->isoFormat('D MMMM Y')
             ];
         if(empty($request->session()->get('data'))){
@@ -127,8 +128,9 @@ class transaksiController extends Controller
             'atas_nama'=> $cekBank->atas_nama,
             'norek'=> $cekBank->norek,
             'total_bayar'=> $order->total_bayar,
-            'total_denda'=> '0',
-            'bukti_bayar'=> 'null',
+            'denda'=>$order->denda,
+            // 'total_denda'=> '0',
+            // 'bukti_bayar'=> 'null',
             'start_date'=> $order['start_date'],
             'end_date'=>$order['end_date'],
             'status'=> '1'

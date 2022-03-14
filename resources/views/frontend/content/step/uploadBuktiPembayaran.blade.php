@@ -46,21 +46,28 @@
                                         <strong>Status Booking</strong><br>
                                         @switch($data->status)
                                         @case(1)
-                                        <p class="text-danger"><i class="fas fa-credit-card"></i> Belum Bayar</p>
+                                        <p class="text-danger"><i style="font-size: 18px"
+                                                class="fas fa-credit-card"></i> Belum Bayar</p>
                                         @break
                                         @case(2)
-                                        <p class="text-warning"><i class="fas fa-stopwatch"></i> Menunggu Confirmasi
+                                        <p class="text-primary"><i class="fas fa-file-invoice-dollar"
+                                                style="font-size: 18px"></i> Menunggu Confirmasi
                                             admin
                                         </p>
                                         @break
                                         @case(3)
-                                        <p class="text-warning"><i class="fas fa-shipping-fast"></i>Rental Berjalan </p>
+                                        <p class="text-success"><i style="font-size: 18px"
+                                                class="fas fa-shipping-fast"></i>
+                                            Rental Berjalan </p>
                                         @break
                                         @case(4)
-                                        <p class="text-warning"><i class="fas fa-stopwatch"></i> Rental Selesai</p>
+                                        <p class="text-success"><i style="font-size: 18px"
+                                                class="far fa-check-circle"></i>
+                                            Rental Selesai</p>
                                         @break
                                         @case(5)
-                                        <p class="text-warning"><i class="fas fa-stopwatch"></i>Rental Gagal</p>
+                                        <p class="text-danger"><i style="font-size: 18px" class="fas fa-ban"></i> Rental
+                                            Gagal</p>
                                         @break
                                         @default
                                         @endswitch
@@ -118,6 +125,23 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-8">
+                                        @if ($data->status == '4')
+                                        {{-- <hr class="mt-2 mb-2"> --}}
+                                        <div class="invoice-detail-item">
+                                            <div class="invoice-detail-name">Total Denda</div>
+                                            <div class="invoice-detail-value invoice-detail-value-lg">
+                                                {{"Rp".number_format($data->total_bayar)}}
+                                            </div>
+                                        </div>
+                                        <div class="invoice-detail-item">
+                                            <div class="invoice-detail-name">Tanggal Pengembalian</div>
+                                            <div class="invoice-detail-value">29 Maret 2022</div>
+                                        </div>
+                                        <div class="invoice-detail-item">
+                                            <div class="invoice-detail-name">Lama Pengembalian</div>
+                                            <div class="invoice-detail-value">{{$data->durasi }} Hari</div>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="col-lg-4 text-right">
                                         <div class="invoice-detail-item">

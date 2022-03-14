@@ -47,7 +47,7 @@
                                             No Handphone :{{$data->no_handphone}}<br>
                                         </address>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <strong>Status Booking</strong><br>
                                         @switch($data->status)
                                         @case(1)
@@ -59,23 +59,27 @@
                                         </p>
                                         @break
                                         @case(3)
-                                        <p class="text-warning"><i class="fas fa-shipping-fast"></i> Rental Berjalan
+                                        <p class="text-success"><i style="font-size: 18px"
+                                                class="fas fa-shipping-fast"></i> Rental Berjalan
                                         </p>
                                         @break
                                         @case(4)
-                                        <p class="text-warning"><i class="fas fa-stopwatch"></i> Rental Selesai</p>
+                                        <p class="text-success"><i style="font-size: 18px" class="far fa-check-circle"></i>
+                                            Rental Selesai</p>
                                         @break
                                         @case(5)
-                                        <p class="text-warning"><i class="fas fa-stopwatch"></i>Rental Gagal</p>
+                                        <p class="text-danger"><i style="font-size: 18px" class="fas fa-ban"></i> Rental
+                                            Gagal</p>
                                         @break
                                         @default
                                         @endswitch
                                     </div>
-                                    @if ($data->bukti_Bayar != 'null')
-                                    <div class="col-md-4">
+                                    @if ($data->bukti_Bayar !== null && $data->status != '4' && $data->status != '5' )
+                                    <div class="col-md-5">
                                         <strong>Silahkan Update Sesuai dengan kebutuhan</strong>
+
                                         <form action="/transaksi/update/{{$data->id}}" class="needs-validation"
-                                            novalidate method="post">
+                                            novalidate method="post" id="rentalStatus">
                                             @csrf
                                             @method('PATCH')
                                             <select name="status" id="updateStatus"
@@ -85,8 +89,6 @@
                                                     Pembayaran</option>
                                                 <option {{$data->status ==3 ? 'selected' : ''}} value="3"> Rental
                                                     Berjalan </option>
-                                                <option {{$data->status ==4 ? 'selected' : ''}} value="4"> Rental
-                                                    Selesai</option>
                                                 <option {{$data->status ==5 ? 'selected' : ''}} value="5"> Rental Gagal
                                                 </option>
                                             </select>
@@ -97,13 +99,46 @@
                                             </span>
                                             @enderror
                                             <br>
-                                            <button class="btn btn-sm btn-outline-primary" type="submit">Update
-                                                Status</button>
                                         </form>
+                                        <button class="btn btn-sm btn-outline-warning" id="reset-btn">Reset</button>
+                                        <button id="1122" data-toggle="modal" data-target="#staticBackdrop"
+                                            class="btn btn-sm btn-outline-primary" data-toggle="tooltip"
+                                            title="update"><i class="fas fa-pen-square"></i> Update
+                                            Status</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop" data-backdrop="static"
+                                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">konfirmasi
+                                                            Status Rental
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-justify text-danger">Apakah Anda Yakin?</p>
+                                                        <p id="112233"></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tutup</button>
+                                                        <button type="submit" id="submitmethod"
+                                                            class="btn btn-outline-primary"><i
+                                                                class="fas fa-pen-square"></i> Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <br>
                                     </div>
                                     @endif
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <address>
@@ -116,30 +151,75 @@
                                             @endif
                                         </address>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <address>
                                             <strong>Order Date:</strong><br>
                                             {{\Carbon\Carbon::parse($data->created_at)->isoFormat('D MMMM Y') }}<br><br>
                                         </address>
                                     </div>
-                                    @if ($data->status == 3 || $data->status == 4 || $data->status == 5)
-                                    <div class="col-md-4">
+                                    @if ($data->status == 3 && $data->status != '5')
+                                    <div class="col-md-5">
                                         <strong>Pengembalian Rental</strong>
+                                        <br>
+                                        <span style="color: red;font-size:11px">
+                                            {{-- <strong>Rental Selesai Ketika Anda Berhasil Mengisi form di bawah</strong> --}}
+                                            <strong>Rental Selesai Ketika Anda Berhasil Mengisi form di bawah</strong>
+                                        </span>
                                         <form action="/transaksi/pengembalian/{{$data->id}}" class="needs-validation"
-                                            novalidate method="post">
+                                            novalidate method="post" id="ReturnDate">
                                             @csrf
-                                            <input required type="date" name="tanggal" id=""
+                                            <input required type="date" name="tanggal" id="txtDate"
                                                 class="form-control @error('tanggal') is-invalid @enderror"">
                                             @error('tanggal')
-                                                <span class=" invalid-feedback" role="alert">
+                                            <span class=" invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
                                             <br>
-                                            <button class="btn btn-sm btn-outline-primary" type="submit">
-                                                Kirim
-                                            </button>
                                         </form>
+                                        <button class="btn btn-sm btn-outline-warning"
+                                            id="reset-btn-return">Reset</button>
+                                        <button type="submit" data-toggle="modal" data-target="#staticBackdrop2"
+                                            class="btn btn-sm btn-outline-primary" data-toggle="tooltip"
+                                            title="Update Tanggal Pengembalian"><i class="far fa-calendar-alt"></i>
+                                            Update
+                                            Tanggal</button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop2" data-backdrop="static"
+                                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">konfirmasi
+                                                            Tanggal Pengembalian Mobil
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-justify text-danger">Apakakah Tanggal Sudah
+                                                            Benar, Ketika Mobil Kembali?</p>
+                                                        <p>Jika anda mengisi form pengembalian rental maka transaksi
+                                                            dengan Invoice
+                                                            <strong class="text-dark">{{'#'.$data->invoice}}</strong>
+                                                            <strong class="text-danger">tidak dapat Lagi di Ubah Lagi
+                                                                Tanggal Pengembaliannya</strong>
+                                                            harap Bijak mengisi form pengembaliannya
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tutup</button>
+                                                        <button type="submit" id="submitReturn"
+                                                            class="btn btn-outline-primary"><i
+                                                                class="fas fa-pen-square"></i> Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <br>
                                     </div>
                                     @endif
@@ -184,7 +264,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-8">
-                                    @if ($data->bukti_Bayar !== 'null')
+                                    @if ($data->bukti_Bayar !== null)
                                     <section class="section">
                                         <div class="section-title">Bukti Pembayaran</div>
                                     </section>
@@ -227,7 +307,7 @@
                                             {{"Rp".number_format($data->total_bayar)}}
                                         </div>
                                     </div>
-                                    @if ($data->status == 3 || $data->status == 4 || $data->status == 5)
+                                    @if ($data->status == '4')
                                     <hr class="mt-2 mb-2">
                                     <div class="invoice-detail-item">
                                         <div class="invoice-detail-name">Total Denda</div>
@@ -236,7 +316,7 @@
                                         </div>
                                     </div>
                                     <div class="invoice-detail-item">
-                                        <div class="invoice-detail-name">Tangaal Pengembalian</div>
+                                        <div class="invoice-detail-name">Tanggal Pengembalian</div>
                                         <div class="invoice-detail-value">29 Maret 2022</div>
                                     </div>
                                     <div class="invoice-detail-item">
@@ -262,4 +342,55 @@
 @push('javascript')
 <script src="https://getstisla.com/dist/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 <script src="https://getstisla.com/dist/modules/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var maxDate = year + '-' + month + '-' + day;
+
+        $('#txtDate').attr('min', maxDate);
+        // @if(Session::has('errors'))
+        // $('#staticBackdrop2').modal('show');
+        // @endif
+
+        $('#submitmethod').click(function () {
+            $('#rentalStatus').submit();
+        });
+        $(document).ready(function () {
+            $("#reset-btn").click(function () {
+                $("#rentalStatus").trigger("reset");
+            });
+        });
+
+        $('#submitReturn').click(function () {
+            $('#ReturnDate').submit();
+        });
+        $(document).ready(function () {
+            $("#reset-btn-return").click(function () {
+                $("#ReturnDate").trigger("reset");
+            });
+        });
+        $('#updateStatus').on('input', function () {
+            let get = $("#updateStatus").val();
+            // console.log(typeof(get));
+            if (get == "5") {
+                let jejak =
+                    "Jika Anda memilih Rental Gagal Maka setelah Di update Transaksi ini Tidak bisa di UPDATE KEMBALI"
+                $("#112233").html('<p>' + jejak + '</p>');
+            } else {
+                let jejak = ''
+                $("#112233").html('<p>' + jejak + '</p>');
+            }
+        });
+    });
+
+</script>
 @endpush

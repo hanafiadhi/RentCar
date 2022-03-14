@@ -28,12 +28,14 @@ class CreateTransactionsTable extends Migration
             $table->string('atas_nama');
             $table->string('norek');
             $table->string('total_bayar');
-            $table->string('bukti_Bayar');
-            $table->string('total_denda');
             $table->date('start_date');
             $table->string('durasi');
             $table->date('end_date');
             $table->date('return_date')->nullable();
+            $table->string('bukti_Bayar')->nullable();
+            $table->string('total_denda')->nullable();
+            $table->string('durasi_pengembalian')->nullable();
+            $table->string('denda')->nullable();
             $table->enum('status',['1','2','3','4','5','6']);
             $table->timestamps();
         });

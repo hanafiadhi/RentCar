@@ -29,11 +29,7 @@ class adminTransController extends Controller
             # code...
             // kirim email pemberitahuan ke customer bahwa Booking Mobilnya Berhasil di Acc
         }
-        if ($request->status == 4) {
-            # code...
-            // kirim email pemberitahuan ke customer Dan bilang Terimkasih
-        }
-        if ($request->status == 4) {
+        if ($request->status == 5) {
             # code...
             // kirim email pemberitahuan ke customer Bahwa Booking mobilnya gagal
         }
@@ -47,18 +43,28 @@ class adminTransController extends Controller
         $request->validate([
             'tanggal'=>'required|date|date_format:Y-m-d|after_or_equal:'.$todayDate,
         ]);
-        
-        // 1.cari harga denda mobil
-        // 2.cari selisih Hari nya dari tanggal end date sampai $request 
+        $data = Transaction::findOrFail($id);
+
+        $tgl1 = new DateTime($request->tanggal);
+        $tgl2 = new DateTime($data->end_date);
+        $jarak = $tgl2->diff($tgl1);
+        $durasi = $jarak->format('%a');
+        $harga  = $durasi*$data->denda;
+
+        $newData = [
+            'return_date' => $request->tanggal,
+            'total_denda' => $harga,
+            'durasi_pengembalian'=> $durasi,
+            'status' => '4'
+        ];
+        $data->update($newData);
+        // dd($data);
+        if ($request->status == 4) {
+            # code...
+            // kirim email pemberitahuan ke customer Dan bilang Terimkasih
+        }
         // 3.hitung berapa denda mobil dari 1 * 2
-
-
-
-        // $tgl1 = new DateTime($request->start_date);
-        // $tgl2 = new DateTime($request->end_date);
-        // $jarak = $tgl2->diff($tgl1);
-        // $durasi = $jarak->format('%a')+1;
-        // $harga  = $durasi*$cekMobil->harga;
+        return redirect()->back()->with('success','Berhasil Mencatat Tanggal Saat Mobil Di Kembalikan');
     }
 
     public function destroy($id){
