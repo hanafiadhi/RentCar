@@ -163,7 +163,7 @@ class transaksiController extends Controller
             'invoice'=> $invoice
         ]);
         $myEmail = env('MAIL_FROM_ADDRESS');
-        dd($myEmail);
+        // dd($myEmail);
         $details = [
             'title' => 'New Booking',
             'url' => env('APP_URL')
