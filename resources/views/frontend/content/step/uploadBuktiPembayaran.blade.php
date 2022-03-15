@@ -130,16 +130,18 @@
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">Total Denda</div>
                                             <div class="invoice-detail-value invoice-detail-value-lg">
-                                                {{"Rp".number_format($data->total_bayar)}}
+                                                {{"Rp".number_format($data->total_denda)}}
                                             </div>
                                         </div>
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">Tanggal Pengembalian</div>
-                                            <div class="invoice-detail-value">29 Maret 2022</div>
+                                            <div class="invoice-detail-value">
+                                                {{\Carbon\Carbon::parse($data->return_date)->isoFormat('D MMMM Y') }}
+                                            </div>
                                         </div>
                                         <div class="invoice-detail-item">
                                             <div class="invoice-detail-name">Lama Pengembalian</div>
-                                            <div class="invoice-detail-value">{{$data->durasi }} Hari</div>
+                                            <div class="invoice-detail-value">{{$data->durasi_pengembalian }} Hari</div>
                                         </div>
                                         @endif
                                     </div>
