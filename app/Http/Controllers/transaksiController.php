@@ -162,13 +162,15 @@ class transaksiController extends Controller
             'status'=> '2',
             'invoice'=> $invoice
         ]);
-        $myEmail = "ngelandtourjogja123@gmail.com";
+        $myEmail = env('MAIL_FROM_ADDRESS');
+        dd($myEmail);
         $details = [
             'title' => 'New Booking',
             'url' => env('APP_URL')
         ];
-        dd($details['url']);
         Mail::to($myEmail)->send(new orderEmail($details));
+        // dd("Mail Send Successfully");
+        // return redirect('/my-transaction');
         return redirect()->back()->with('upload','Berhasil Upload Bukti Pembayaran, Kami akan mengkonformasi sesegera mungkin');
     }
 }
