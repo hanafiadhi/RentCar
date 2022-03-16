@@ -17,7 +17,7 @@
                                 <h4>Total User</h4>
                             </div>
                             <div class="card-body">
-                               {{$User ?? ''}}
+                                {{$User ?? ''}}
                             </div>
                         </div>
                     </div>
@@ -55,14 +55,14 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-warning">
-                           <i class="fas fa-car-side"></i>
+                            <i class="fas fa-car-side"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Tipe</h4>
                             </div>
                             <div class="card-body">
-                               {{$tipe ?? ''}}
+                                {{$tipe ?? ''}}
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,37 @@
                                 <h4>Fitur</h4>
                             </div>
                             <div class="card-body">
-                               {{$Fitur ?? ''}}
+                                {{$Fitur ?? ''}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-info">
+                            <i class="fas fa-money-check-alt"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Bank</h4>
+                            </div>
+                            <div class="card-body">
+                                {{$bank ?? ''}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-dark">
+                            <i class="fas fa-dolly"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Transaksi</h4>
+                            </div>
+                            <div class="card-body">
+                                {{$transaksi ?? ''}}
                             </div>
                         </div>
                     </div>

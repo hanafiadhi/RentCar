@@ -26,14 +26,16 @@
                         <div class="card-body">
                             <h4>{{$item->nama}}</h4>
                             <p>{{ Str::limit($item->url, 74, '...') }}</p>
-                            <div class="d-flex">
-                                <form action="/sosial-media/destroy/{{$item->id}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <a href="/sosial-media/edit/{{$item->id}}" class="ml-auto"><i
-                                            class="fas fa-edit"></i>edit</a>
-                                </form>
-                                <button type="submit" class="ml-auto btn btn-outline-warning">Delete</button>
+                            <div class="row">
+                                <div class="col-6"> <a href="/sosial-media/edit/{{$item->id}}" class="ml-auto"><i
+                                            class="fas fa-edit"></i>edit</a></div>
+                                <div class="col-6 ml-auto">
+                                    <form action="/sosial-media/destroy/{{$item->id}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="ml-auto btn btn-outline-warning">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

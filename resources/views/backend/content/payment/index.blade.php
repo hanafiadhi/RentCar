@@ -112,40 +112,9 @@
                                         data-toggle="tooltip" title="Details invoice : {{$item->invoice ?? ''}}"><i
                                             class="fas fa-info-circle"></i></a>
                                     @if ($item->status == 1 || $item->status == 4 || $item->status ==5)
-                                    <button type="submit" data-toggle="modal" data-target="#staticBackdrop"
-                                        class="btn btn-sm btn-danger btn-action" data-toggle="tooltip" title="Hapus"><i
-                                            class="fas fa-trash"></i></a></button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-backdrop="static"
-                                        data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">konfirmasi
-                                                        penghapusan
-                                                    </h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p class="text-justify text-danger">Apakah Anda Yakin Ingin
-                                                        menghapusnya?</p>
-                                                    <form action="/transaksi/destroy/{{$item->id}}" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Tutup</button>
-                                                            <button type="submit" class="btn btn-danger">Hapus</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <a href="#" id="12" data-id="{{$item->id}}" data-toggle="modal"
+                                        data-target="#staticBackdrop" class="btn btn-sm btn-danger btn-action"
+                                        data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></a></button>
                                     @endif
                                 </td>
                             </tr>
@@ -154,8 +123,44 @@
                     </table>
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">konfirmasi
+                                penghapusan
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-justify text-danger">Apakah Anda Yakin Ingin
+                                menghapusnya?</p>
+                            <form action="/transaksi/destroy/{{$item->id}}" method="POST" id="delete-form">
+                                @csrf
+                                @method('delete')
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {{-- </div> --}}
     </div>
 </div>
 @endsection
+@push('javascript')
+<script>
+    $(document).on('click', '#12', function () {
+        let id = $(this).attr('data-id');
+        $('#delete-form').attr('action', '/transaksi/destroy/' + id);
+    });
+</script>
+@endpush

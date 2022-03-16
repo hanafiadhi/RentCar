@@ -178,7 +178,6 @@
                     @endauth
                 </ul>
             </nav>
-
             <nav class="navbar navbar-secondary navbar-expand-lg">
                 <div class="container">
                     <ul class="navbar-nav">
@@ -201,7 +200,8 @@
                                 ?>
                                 @if ($data->count() != 0)
                                 @foreach ($data as $singsing)
-                                <li class="nav-item"><a href="/jenis-mobil/{{$singsing->id}}" class="nav-link">{{$singsing->nama_tipe}}</a></li>
+                                <li class="nav-item"><a href="/jenis-mobil/{{$singsing->id}}"
+                                        class="nav-link">{{$singsing->nama_tipe}}</a></li>
                                 @endforeach
                                 @endif
                             </ul>
@@ -212,17 +212,19 @@
 
             <!-- Main Content -->
             @yield('content')
-            <footer class="main-footer">
-                <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
-                        Nauval Azhar</a>
-                </div>
-                <div class="footer-right">
-
-                </div>
-            </footer>
         </div>
+
+
     </div>
+
+    <footer class="main-footer">
+        <div class="bg-light">
+            <div class="footer-right">
+                Copyright &copy; 2022 <div class="bullet"></div> Website Ngeland Tour Jogja</a>
+            </div>
+        </div>
+    </footer>
+
 
 
     <!-- General JS Scripts -->

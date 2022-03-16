@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{User,car,Fitur,type};
+use App\{Bank, User,car,Fitur, Transaction, type};
 
 class HomeController extends Controller
 {
@@ -26,7 +26,9 @@ class HomeController extends Controller
             'User'=> User::Role('user')->count(),
             'Car'=> car::count(),
             'Fitur'=> Fitur::count(),
-            'tipe'=> type::count()
+            'tipe'=> type::count(),
+            'bank' => Bank::count(),
+            'transaksi'=> Transaction::count()
         ]);
     }
     public function profil()

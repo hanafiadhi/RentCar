@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Transaction;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NgelandTourNotification;
 class adminTransController extends Controller
 {
     public function index(){
@@ -25,15 +27,38 @@ class adminTransController extends Controller
         $request->validate([
             'status'=>'required|integer'
         ]);
+        $data = Transaction::findOrFail($id);
+        // $cek = $data->user()->get();
         if ($request->status == 3) {
             # code...
             // kirim email pemberitahuan ke customer bahwa Booking Mobilnya Berhasil di Acc
+            $myEmail = $data->email;
+            $details = [
+                'title' => 'Rental Mobil Berhasil',
+                'invoice'=> $data->invoice,
+                'pesan'=>"
+                    Selamat Rental yang anda Ajukan, berhasil di ACC oleh Admin NgelandTour
+                    God Bless You
+                ",
+                'url' => env('APP_URL')
+            ];
+            Mail::to($myEmail)->send(new NgelandTourNotification($details));
         }
         if ($request->status == 5) {
             # code...
             // kirim email pemberitahuan ke customer Bahwa Booking mobilnya gagal
+            $myEmail = $data->email;
+            $details = [
+                'title' => 'Rental Mobil GAGAL',
+                'invoice'=> $data->invoice,
+                'pesan'=>"
+                    Mohon Maaf Rental yang Anda ajukan GAGAL
+                    God Bless You
+                ",
+                'url' => env('APP_URL')
+            ];
+            Mail::to($myEmail)->send(new NgelandTourNotification($details));
         }
-        $data = Transaction::findOrFail($id);
         $data->update($request->all());
         return redirect()->back()->with('success','Data berhasil Di Ubah');
     }
@@ -59,9 +84,19 @@ class adminTransController extends Controller
         ];
         $data->update($newData);
         // dd($data);
-        if ($request->status == 4) {
+        if ($data->status == 4) {
             # code...
             // kirim email pemberitahuan ke customer Dan bilang Terimkasih
+            $myEmail = $data->email;
+            $details = [
+                'title' => 'Rental Mobil Selesai',
+                'invoice'=> $data->invoice,
+                'pesan'=>"
+                    Terimakasih Telah Menggunakan Jasa Ngeland Tour untuk perjalanan Anda
+                ",
+                'url' => env('APP_URL')
+            ];
+            Mail::to($myEmail)->send(new NgelandTourNotification($details));
         }
         // 3.hitung berapa denda mobil dari 1 * 2
         return redirect()->back()->with('success','Berhasil Mencatat Tanggal Saat Mobil Di Kembalikan');
