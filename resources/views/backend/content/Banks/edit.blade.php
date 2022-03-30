@@ -19,11 +19,6 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Foto Bank</h4>
-                                {{-- <div class="section-header-breadcrumb">
-                                    <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
-                                    <div class="breadcrumb-item"><a href="/bank-payment">Bank</a></div>
-                                    <div class="breadcrumb-item">Form edit</div>
-                                </div> --}}
                             </div>
                             <div class="card-body">
                                 <div class="form-group">

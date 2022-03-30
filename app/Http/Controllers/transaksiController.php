@@ -62,15 +62,6 @@ class transaksiController extends Controller
         }
         return redirect()->route('stepTwos');
     }
-    // public function change(Request $request){
-    //     $cek = User::where('id',Auth::user()->id)->first();
-    //     $request->validate([
-    //         'name' =>'|min:5|max:255',
-    //         'no_handphone'=> '|min:5|max:255'
-    //     ]);
-    //     $cek->update($request->all());
-    //     return redirect()->back();
-    // }
     public function stepTwos(Request $request){
         $data = $request->session()->get('data');
         if ($data == null) {
@@ -129,8 +120,6 @@ class transaksiController extends Controller
             'norek'=> $cekBank->norek,
             'total_bayar'=> $order->total_bayar,
             'denda'=>$order->denda,
-            // 'total_denda'=> '0',
-            // 'bukti_bayar'=> 'null',
             'start_date'=> $order['start_date'],
             'end_date'=>$order['end_date'],
             'status'=> '1'
@@ -163,14 +152,11 @@ class transaksiController extends Controller
             'invoice'=> $invoice
         ]);
         $myEmail = env('MAIL_FROM_ADDRESS');
-        // dd($myEmail);
         $details = [
             'title' => 'New Booking',
             'url' => env('APP_URL')
         ];
         Mail::to($myEmail)->send(new orderEmail($details));
-        // dd("Mail Send Successfully");
-        // return redirect('/my-transaction');
         return redirect()->back()->with('upload','Berhasil Upload Bukti Pembayaran, Kami akan mengkonformasi sesegera mungkin');
     }
 }

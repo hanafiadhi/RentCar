@@ -19,9 +19,6 @@ Route::get('/mobil','frontendController@car');
 Route::get('/detail-mobil/{id}','frontendController@carDetails')->name('detail');
 Route::get('/jenis-mobil/{id}','frontendController@cartype');
 // !!------------------frontend--------------------!!
-// Route::fallback(function () {
-//     abort(404);
-// });
 #user
 
 Route::group(['middleware' =>['auth']], function () {

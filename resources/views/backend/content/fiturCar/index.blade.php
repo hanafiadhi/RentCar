@@ -17,19 +17,8 @@
                 </div>
                 @endif
                 <div class="card">
-                    {{-- <button type="button" class="btn btn-outline-primary">Primary</button> --}}
                     <div class="card-header">
                         <h4>Tipe mobil</h4>
-                        {{-- <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> --}}
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">

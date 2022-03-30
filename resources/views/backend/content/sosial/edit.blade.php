@@ -11,19 +11,14 @@
             </div>
         </div>
         <div class="section-body">
-            {{-- <h2 class="section-title">Form Validation</h2>
-            <p class="section-lead">
-                Form validation using default from Bootstrap 4
-            </p> --}}
+         
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <form action="/sosial-media/update/{{$data->id}}" method="post">
                             @csrf
                             @method('patch')
-                            {{-- <div class="card-header">
-                                <h4>Server-side Validation</h4>
-                            </div> --}}
+                          
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>icon</label>

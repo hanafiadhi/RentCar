@@ -98,7 +98,6 @@ class adminTransController extends Controller
             ];
             Mail::to($myEmail)->send(new NgelandTourNotification($details));
         }
-        // 3.hitung berapa denda mobil dari 1 * 2
         return redirect()->back()->with('success','Berhasil Mencatat Tanggal Saat Mobil Di Kembalikan');
     }
 
@@ -113,7 +112,11 @@ class adminTransController extends Controller
     
     public function download($id){
         $data = Transaction::findOrFail($id);
-        $filepath = public_path('bukti-pembayaran/'.$data->bukti_Bayar);
-        return Response::download($filepath); 
+        if(File::exists(public_path('bukti-pembayaran/'.$data->bukti_Bayar))) {
+            $filepath = public_path('bukti-pembayaran/'.$data->bukti_Bayar);
+            return Response::download($filepath); 
+        }else {
+            return redirect()->back()->with('cek','Gambar Kosong');
+        }
     }
 }

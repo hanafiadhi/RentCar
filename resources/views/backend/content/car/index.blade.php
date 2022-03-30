@@ -25,60 +25,13 @@
                 You can manage all cars, such as editing, deleting and more.
             </p>
         </section>
-        {{-- <div class="row">
-            <div class="col-12">
-                <div class="card mb-0">
-                    <div class="card-body">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">All <span class="badge badge-white">5</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Ready <span class="badge badge-primary">1</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Tidak Ready<span class="badge badge-primary">1</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Semua Mobil</h4>
-                        {{-- <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> --}}
                     </div>
                     <div class="card-body">
-                        {{-- <div class="float-left">
-                                <select class="form-control selectric">
-                                    <option>Action For Selected</option>
-                                    <option>Move to Draft</option>
-                                    <option>Move to Pending</option>
-                                    <option>Delete Pemanently</option>
-                                </select>
-                            </div>
-                            <div class="float-right">
-                                <form>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div> --}}
                         <div class="clearfix mb-3"></div>
                         <div class="table-responsive">
                             <table class="table table-striped" style="overflow-x: auto;white-space: nowrap">
@@ -113,9 +66,6 @@
                                                 </div>
                                             </a>
                                         </div>
-                                        {{-- <img style="height: 70px; object-fit:cover; object-position:center"
-                                                src="{{asset("/storage/".$item->gambar)}}" alt="" sizes="10px"
-                                        srcset=""> --}}
                                     </td>
                                     <td>
                                         {{$item->type->nama_tipe}}

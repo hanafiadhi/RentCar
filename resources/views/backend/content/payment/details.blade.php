@@ -64,7 +64,8 @@
                                         </p>
                                         @break
                                         @case(4)
-                                        <p class="text-success"><i style="font-size: 18px" class="far fa-check-circle"></i>
+                                        <p class="text-success"><i style="font-size: 18px"
+                                                class="far fa-check-circle"></i>
                                             Rental Selesai</p>
                                         @break
                                         @case(5)
@@ -283,6 +284,13 @@
                                         </a>
                                     </div>
                                     <br>
+                                    @if (session('cek'))
+                                    <div class="text-danger">
+                                        <span>
+                                            {{session('cek')}}
+                                        </span>
+                                    </div>
+                                    @endif
                                     <form action="/transaksi/download/{{$data->id}}" method="post">
                                         @csrf
                                         <button class="btn btn-sm btn-outline-dark">Download Bukti
@@ -317,7 +325,8 @@
                                     </div>
                                     <div class="invoice-detail-item">
                                         <div class="invoice-detail-name">Tanggal Pengembalian</div>
-                                        <div class="invoice-detail-value">{{\Carbon\Carbon::parse($data->return_date)->isoFormat('D MMMM Y') }}</div>
+                                        <div class="invoice-detail-value">
+                                            {{\Carbon\Carbon::parse($data->return_date)->isoFormat('D MMMM Y') }}</div>
                                     </div>
                                     <div class="invoice-detail-item">
                                         <div class="invoice-detail-name">Lama Pengembalian</div>
