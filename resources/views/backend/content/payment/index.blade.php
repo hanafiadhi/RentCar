@@ -139,7 +139,7 @@
                         <div class="modal-body">
                             <p class="text-justify text-danger">Apakah Anda Yakin Ingin
                                 menghapusnya?</p>
-                            <form action="/transaksi/destroy/{{$item->id}}" method="POST" id="delete-form">
+                            <form action="/transaksi/destroy/{{$item->id ?? ''}}" method="POST" id="delete-form">
                                 @csrf
                                 @method('delete')
                                 <div class="modal-footer">

@@ -30,7 +30,7 @@ class carController extends Controller
             'transmisi'=>'required|in:manual,semi-otomatis,otomatis',
             'type_id'=> 'required|integer',
             'gambar'=> 'required|image|mimes:jpg,png,jpeg|max:2048',
-            'fitur'=> 'array|required',
+            // 'fitur'=> 'array|required',
         ]);
         $data = $request->all();
         if ($image = $request->file('gambar')) {
@@ -64,7 +64,7 @@ class carController extends Controller
             'transmisi'=>'required|in:manual,semi-otomatis,otomatis',
             'type_id'=> 'required|integer',
             'gambar'=> 'image|mimes:jpg,png,jpeg|max:2048',
-            'fitur'=> 'array|required',
+            // 'fitur'=> 'array|required',
         ]);
         $data = car::findOrFail($id);
         if ($image = $request->file('gambar')) {

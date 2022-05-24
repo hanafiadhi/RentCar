@@ -15,7 +15,7 @@ class sosialSeed extends Seeder
     {
         $data = [
             ['icon'=>'<i class="fab fa-instagram"></i>','nama'=>'Instagram','url'=>'https://www.instagram.com/'],
-            ['icon'=>'<i class="fab fa-whatsapp"></i>','nama'=>'Whatsapp','url'=>'https://web.whatsapp.com/'],
+            ['icon'=>'<i class="fab fa-whatsapp"></i>','nama'=>'Whatsapp','url'=>'https://wa.me/6281355538777'],
             ['icon'=> '<i class="far fa-envelope"></i>','nama'=>'Gmail','url'=>'https://www.google.com/intl/id/gmail/about/']
         ];
         foreach($data as $key =>$value){
@@ -47,7 +47,7 @@ class sosialSeed extends Seeder
             ],[
                 'nama_fitur'=> 'Air Mineral'
             ],[
-                'nama_fitur'=> 'AC'
+                'nama_fitur'=> 'Wifi'
             ],[
                 'nama_fitur'=> 'Kantong Plastik'
             ]

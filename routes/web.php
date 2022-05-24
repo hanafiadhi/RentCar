@@ -19,15 +19,15 @@ Route::get('/mobil','frontendController@car');
 Route::get('/detail-mobil/{id}','frontendController@carDetails')->name('detail');
 Route::get('/jenis-mobil/{id}','frontendController@cartype');
 // !!------------------frontend--------------------!!
-#user
 
-Route::group(['middleware' =>['auth']], function () {
+#user
+Route::group(['middleware' =>['auth','role:user']], function () {
     // User needs to be authenticated to enter here.
     Route::get('/my-transaction','userController@transaksi');
     Route::get('/my-profil','userController@profil');
     Route::get('/my-invoice/{id}','userController@invoice')->name('invoice');
 });
-Route::group(['middleware' =>['auth','verified']], function () {
+Route::group(['middleware' =>['auth','verified','role:user']], function () {
     // User needs to be authenticated to enter here.
     Route::post('/stepTwo','transaksiController@stepTwo')->name('stepTwo');
     Route::get('/cek-pesanan','transaksiController@stepTwos')->name('stepTwos');

@@ -132,18 +132,25 @@
                     @auth
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="{{asset('assets/img/avatar/avatar-1.png')}}" class="rounded-circle mr-1">
+                            <img alt="image" src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                class="rounded-circle mr-1">
                             <div class="d-sm-none d-lg-inline-block"> {{ Auth::user()->name ?? 'Admin'  }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             @if (Auth::user()->email_verified_at == null)
                             <a href="/email/verify" class="dropdown-item has-icon beep">
-                                <i class="fas fa-ban"></i>Verifikasi Akun
+                                <i class="fa-solid fa-hand-holding-heart"></i> Verifikasi Akun
                             </a>
                             @endif
+                            @role('admin')
+                            <a href="/home" class="dropdown-item has-icon beep">
+                                <i class="fas fa-chalkboard-teacher"></i>Dashboard
+                            </a>
+                            @else
                             <a href="/my-transaction" class="dropdown-item has-icon beep">
                                 <i class="fas fa-wallet"></i>Transaksi Kamu
                             </a>
+                            @endrole
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item has-icon text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i

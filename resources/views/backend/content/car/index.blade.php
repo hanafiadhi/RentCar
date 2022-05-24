@@ -123,7 +123,7 @@
                                     <div class="modal-body">
                                         <p class="text-justify text-danger">Apakah Anda Yakin Ingin
                                             menghapusnya?</p>
-                                        <form action="/data-mobil/destroy/{{$item->id}}" method="POST" id="delete-form"
+                                        <form action="/data-mobil/destroy/{{$item->id ?? ''}}" method="POST" id="delete-form"
                                             delete-form"">
                                             @csrf
                                             @method('delete')

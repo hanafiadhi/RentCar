@@ -15,7 +15,7 @@
             <p class="section-lead">
                 Organize and adjust all settings sosial media.
             </p>
-
+            <a href="/sosial-media/create" class=" btn btn-outline-primary mb-3">Tambah Media</a>
             <div class="row">
                 @foreach ($sosial as $item)
                 <div class="col-lg-6">
