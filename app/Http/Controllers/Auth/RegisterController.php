@@ -72,13 +72,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        dd($data);
+         if($image = $data['gambar']) {
+            $destinationPath = 'KTP/';
+            $profileImage =  $data['username']. "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $thumbnailURL = "$profileImage";
+        }
+        // $data['gambar']= $thumbnailURL;
         $user = User::create([
             'username' => $data['username'],
             'name' => $data['name'],
             'email' => $data['email'],
             'no_handphone'=> $data['no_handphone'],
             'gender'=> $data['gender'],
+            'gambar'=> $thumbnailURL,
             'cek'=> 'full',
             'password' => Hash::make($data['password']),
         ]);
