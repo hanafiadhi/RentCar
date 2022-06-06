@@ -116,7 +116,7 @@
                     @enderror
                     <img id="output" class="img-thumbnail">
                 </div>
-                <input type="checkbox" name="dahlah" id="">
+                {{-- <input type="checkbox" name="dahlah" id=""> --}}
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox"name="agree" class="custom-control-input" id="agree">
