@@ -17,7 +17,7 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
+            <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}" class="needs-validation" novalidate>
                 @csrf
                 <div class=" row">
                     <div class="form-group col-6">
@@ -107,6 +107,27 @@
                         @enderror
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="gambar">Upload Ktp Anda</label>
+                    <input required name="gambar" class="form-control" type="file" accept="image/*"
+                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                    @error('gambar')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <img id="output" class="img-thumbnail">
+                </div>
+                <input type="checkbox" name="dahlah" id="">
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox"name="agree" class="custom-control-input" id="agree">
+                        <label class="custom-control-label" for="agree">Saya setuju untuk menggunkan Foto KTP sebagai
+                            jaminan saya saat merental mobil</label>
+                    </div>
+                      @error('agree')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="text-center mt-4 mb-3">
                     <div class="text-job text-muted">Daftar With Social</div>
                 </div>
